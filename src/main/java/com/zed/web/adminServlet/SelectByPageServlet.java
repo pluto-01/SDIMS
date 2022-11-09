@@ -25,6 +25,10 @@ public class SelectByPageServlet extends HttpServlet {
         String _currentPage = request.getParameter("currentPage");
         String _pageSize = request.getParameter("pageSize");
 
+        if (_currentPage == null)
+            _currentPage = "1";
+        if (_pageSize == null)
+            _pageSize = "5";
         int currentPage = Integer.parseInt(_currentPage);
         int pageSize = Integer.parseInt(_pageSize);
 

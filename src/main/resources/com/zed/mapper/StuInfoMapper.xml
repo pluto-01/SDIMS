@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zed.mapper.StuInfoMapper">
+    <!--    <resultMap id="userResultMap" type="user">-->
+    <!--        <result column="user_name" property="userName"></result>-->
+    <!--    </resultMap>-->
+
+    <!--where sno = #{stuInfo.sno}-->
+    <select id="selectByPageAndCondition" resultType="com.zed.pojo.StuInfo">
+        select * from t_stuinfo
+        <where>
+            <if test="stuInfo.sno != null and stuInfo.sno !=''">
+                and sno like #{stuInfo.sno}
+            </if>
+
+            <if test="stuInfo.departmentId != null and stuInfo.departmentId !=''">
+                and departmentId like #{stuInfo.departmentId}
+            </if>
+
+            <if test="stuInfo.name != null and stuInfo.name !=''">
+                and `name` = #{stuInfo.name}
+            </if>
+        </where>
+
+        limit #{begin} , #{size}
+    </select>
+
+    <select id="selectTotalCountByCondition" resultType="java.lang.Integer">
+        select count(*) from t_stuinfo
+        <where>
+            <if test="sno != null and sno !=''">
+                and sno like #{sno}
+            </if>
+
+            <if test="departmentId != null and departmentId !=''">
+                and departmentId like #{departmentId}
+            </if>
+
+            <if test="name != null and name !=''">
+                and `name` = #{name}
+            </if>
+
+        </where>
+    </select>
+
+    <select id="editStuInfo" resultType="com.zed.pojo.StuInfo">
+        update t_stuinfo set
+        sno = #{sno},departmentId = #{departmentId},name= #{name},major = #{major},gender = #{gender},tel=#{tel}
+        where id = #{id}
+    </select>
+
+    <delete id="deleteById">
+        delete from  t_stuinfo where id = #{id}
+    </delete>
+</mapper>

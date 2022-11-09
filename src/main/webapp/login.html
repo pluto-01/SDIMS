@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>登录</title>
+    <script src="js/vue.js"></script>
+    <script src="js/axios.js"></script>
+    <link rel="stylesheet" href="css/login.css">
+</head>
+
+<body>
+    <div class="container" id="container">
+        <h2>登录</h2>
+        <form action="loginServlet" method="post" v-model="userInfo">
+
+            <div class="input-container">
+                <label class="login_label">账号</label>
+                <input type="text" required name="username" class="login_input" placeholder="请输入用户名或学号" v-model="userInfo.username">
+            </div>
+            <div class="input-container">
+                <label class="login_label">密码</label>
+                <input type="password" required name="password" class="login_input" placeholder="请输入密码" v-model="userInfo.password">
+            </div>
+            <div class="btn-container">
+                <div class="identity-container">
+                    <a href="#" class="forget_pwd">忘记密码？</a>
+                        <label class="identity_label labels" >
+                            <input type="radio" name="identity" class="identity_input" :value="1" required>管理员
+                        </label>
+                        <label class="identity_label labels">
+                            <input type="radio" name="identity" class="identity_input" :value="2" required>学生
+                        </label>
+                        <label class="identity_label">
+                            <input type="radio" name="identity" class="identity_input" :value="3" required>水电工
+                        </label>
+                </div>
+                <div>
+                    <button type="submit" @click="getUserInfo()">登录</button>
+                    <button type="submit">注册</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</body>
+
+<script>
+    new Vue({
+        el:"#container",
+        data:{
+            userInfo:[],
+            value:"",
+        },
+        methods:{
+           getUserInfo(){
+               let that = this;
+               axios({
+                   method:"post",
+                   url:"http://localhost:8080/selectByPageServlet",
+                   data:that.userInfo
+               }).then(function (resp){
+
+               })
+           }
+        }
+    })
+</script>
+</html>

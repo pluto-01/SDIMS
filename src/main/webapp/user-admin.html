@@ -38,7 +38,7 @@
 
                         <el-menu-item index="2" @click="change2()">
                             <i class="el-icon-menu"></i>
-                            <span slot="title">宿舍管理</span>
+                            <span slot="title">财产管理</span>
                         </el-menu-item>
 
                         <el-menu-item index="3" @click="change3()">
@@ -46,7 +46,7 @@
                             <span slot="title">访客登记</span>
                         </el-menu-item>
 
-                        <el-menu-item index="4" @click="change3()">
+                        <el-menu-item index="4" @click="change4()">
                             <i class="el-icon-menu"></i>
                             <span slot="title">物品审核</span>
                         </el-menu-item>
@@ -56,12 +56,12 @@
 <!--                            <el-menu-item index="3-2">物品审核</el-menu-item>-->
 <!--                        </el-menu-item-group>-->
 
-                        <el-menu-item index="5" @click="change4()">
+                        <el-menu-item index="5" @click="change5()">
                             <i class="el-icon-menu"></i>
                             <span slot="title">报修管理</span>
                         </el-menu-item>
 
-                        <el-menu-item index="6" @click="change5()">
+                        <el-menu-item index="6" @click="change6()">
                             <i class="el-icon-menu"></i>
                             <span slot="title">费用明细</span>
                         </el-menu-item>
@@ -91,7 +91,7 @@
             </el-form>
 
             <el-row>
-                <el-button type="primary" plain @click="dialogVisible=true">新增信息</el-button>
+                <el-button type="primary" plain @click="onShow()">新增信息</el-button>
                 <el-button type="danger" plain>批量删除</el-button>
             </el-row>
                 <!--添加对话框表单-->
@@ -128,7 +128,7 @@
 
                         <el-form-item align="center">
                             <el-button type="primary" @click="addStuInfo">提交</el-button>
-                            <el-button>取消</el-button>
+                            <el-button @click="closeDialog()">取消</el-button>
                         </el-form-item>
 
                     </el-form>
@@ -422,7 +422,97 @@
             </div>
         </div>
         <div class="showInfo" v-show="count == 3">
-            3333333333333333
+            <el-row>
+                <el-button type="primary" plain @click="onShow3()">新增信息</el-button>
+            </el-row>
+            <!--添加对话框表单-->
+            <el-dialog
+                    title="新增访客信息"
+                    :visible.sync="dialogVisible3"
+                    width="30%">
+
+                <!--对话框内容-->
+                <el-form ref="form" :model="visitorInfo" label-width="80px">
+
+                    <el-form-item label="姓名">
+                        <el-input v-model="visitorInfo.visitor"></el-input>
+                    </el-form-item>
+
+                    <el-form-item label="性别">
+                        <el-input v-model="visitorInfo.gender"></el-input>
+                    </el-form-item>
+
+                    <el-form-item label="事由">
+                        <el-input v-model="visitorInfo.reason"></el-input>
+                    </el-form-item>
+
+                    <el-form-item label="联系电话">
+                        <el-input v-model="visitorInfo.tel"></el-input>
+                    </el-form-item>
+
+                    <el-form-item label="日期">
+                        <el-date-picker type="date" placeholder="选择日期" v-model="visitorInfo.date" style="width: 100%;"></el-date-picker>
+                    </el-form-item>
+
+                    <el-form-item align="center">
+                        <el-button type="primary" @click="addVisitorInfo">提交</el-button>
+                        <el-button @click="closeDialog3()">取消</el-button>
+                    </el-form-item>
+
+                </el-form>
+            </el-dialog>
+
+
+
+            <div class="searchResults">
+                <template>
+                    <el-table
+                            ref="multipleTable"
+                            :data="tableData3"
+                            tooltip-effect="dark"
+                            style="width: 100%"
+                            @selection-change="handleSelectionChange">
+                        <el-table-column
+                                type="selection"
+                                align="center">
+                        </el-table-column>
+                        <el-table-column
+                                type="index"
+                                width="50">
+                        </el-table-column>
+                        <el-table-column
+                                prop="visitor"
+                                label="访客姓名"
+                                align="center">
+                        </el-table-column>
+
+                        <el-table-column
+                                prop="gender"
+                                label="性别"
+                                align="center">
+                        </el-table-column>
+
+                        <el-table-column
+                                prop="reason"
+                                label="事由"
+                                align="center">
+                        </el-table-column>
+
+                        <el-table-column
+                                prop="tel"
+                                label="电话号码"
+                                align="center">
+                        </el-table-column>
+
+                        <el-table-column
+                                prop="date"
+                                label="日期"
+                                align="center">
+                        </el-table-column>
+
+                    </el-table>
+                </template>
+        </div>
         </div>
         <div class="showInfo" v-show="count == 4">
             444444444444444
@@ -433,9 +523,7 @@
         <div class="showInfo" v-show="count == 6">
             66666666666666
         </div>
-
     </div>
-
     <script>
         new Vue({
             el:"#container",
@@ -472,12 +560,13 @@
                     editStu:[],
                 //获取要删除行的学生信息的id
                 id:"",
+                //控制新增信息对话框的打开与隐藏
+                dialogVisible : false,
                 //控制编辑对话框的打开与隐藏
                dialogFormVisible:false,
                 //控制删除对话框的打开与隐藏
                 centerDialogVisible:false,
                 //对话框表单数据
-                    dialogVisible: false,
                     stuInfo: {
                         sno:"",
                         departmentId:"",
@@ -537,10 +626,37 @@
                     gender:"",
                     tel:"",
                 }],
+
+                /**
+                 *
+                 *
+                 *
+                 *
+                 *导航第3栏的数据
+                 *
+                 *
+                 *
+                 * */
+                dialogVisible3:false,
+                tableData3: [{
+                    visitor:"",
+                    gender:"",
+                    reason:"",
+                    tel:"",
+                    date:"",
+                }],
+                visitorInfo:{
+                    visitor:"",
+                    gender:"",
+                    reason:"",
+                    tel:"",
+                    date:"",
+                }
             },
             // 页面加载完成后，发送异步请求，获取数据
             mounted(){
                 this.selectAll();
+                this.selectAll3();
 
             },
             methods:{
@@ -605,6 +721,12 @@
                             that.stuInfo = [];
                         }
                     })
+                },
+                onShow(){
+                    this.dialogVisible = true;
+                },
+                closeDialog(){
+                    this.dialogVisible = false;
                 },
                 // 表格方法
                 toggleSelection(rows) {
@@ -692,15 +814,58 @@
                  *
                  *
                  *
-                 *导航第2栏的数据
+                 *导航第2栏的方法
                  *
                  *
                  *
                  * */
                 onShow2(){
                     this.dialogVisible2 = true;
-                }
-
+                },
+                /**
+                 *
+                 *
+                 *
+                 *
+                 *导航第3栏的方法
+                 *
+                 *
+                 *
+                 * */
+                onShow3(){
+                    this.dialogVisible3 = true;
+                },
+                selectAll3(){
+                    let _this = this;
+                    axios({
+                        method:"get",
+                        url:"http://localhost:8080/selectVisitorServlet"
+                    }).then(function (resp){
+                        _this.tableData3 = resp.data;
+                    })
+                },
+                addVisitorInfo(){
+                    let that = this;
+                    axios({
+                        method:"post",
+                        url:"http://localhost:8080/addVisitorServlet",
+                        data:that.visitorInfo
+                    }).then(function(resp){
+                        if(resp.data == "success"){
+                            //关闭窗口
+                            that.dialogVisible3 = false;
+                            that.selectAll3();
+                            that.$message({
+                                message: '恭喜你，添加成功',
+                                type: 'success'
+                            });
+                            that.visitorInfo = [];
+                        }
+                    })
+                },
+                closeDialog3(){
+                    this.dialogVisible3 = true;
+                },
             }
         });
     </script>

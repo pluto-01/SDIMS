@@ -1,4 +1,4 @@
-package com.zed.web.adminServlet;
+package com.zed.web.adminServlet.student;
 
 import com.zed.mapper.LoginMapper;
 import com.zed.pojo.User;

@@ -1,4 +1,4 @@
-package com.zed.web.adminServlet;
+package com.zed.web.adminServlet.student;
 
 import com.alibaba.fastjson.JSON;
 import com.zed.pojo.StuInfo;

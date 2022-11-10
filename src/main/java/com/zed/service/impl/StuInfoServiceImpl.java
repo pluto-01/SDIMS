@@ -1,8 +1,8 @@
 package com.zed.service.impl;
 
 import com.zed.mapper.StuInfoMapper;
-import com.zed.pojo.Page;
-import com.zed.pojo.StuInfo;
+import com.zed.entity.Page;
+import com.zed.entity.StuInfo;
 import com.zed.service.StuInfoService;
 import com.zed.utils.SqlSessionFactoryUtils;
 import org.apache.ibatis.session.SqlSession;

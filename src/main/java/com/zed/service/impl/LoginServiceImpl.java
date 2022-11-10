@@ -1,6 +1,6 @@
 package com.zed.service.impl;
 
-import com.zed.pojo.User;
+import com.zed.entity.User;
 import com.zed.service.LoginService;
 import com.zed.utils.SqlSessionFactoryUtils;
 import org.apache.ibatis.session.SqlSessionFactory;

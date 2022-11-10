@@ -1,7 +1,7 @@
 package com.zed.web.adminServlet.student;
 
 import com.zed.mapper.LoginMapper;
-import com.zed.pojo.User;
+import com.zed.entity.User;
 import org.apache.ibatis.io.Resources;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;

@@ -8,7 +8,7 @@
     <!--    </resultMap>-->
 
     <!--where sno = #{stuInfo.sno}-->
-    <select id="selectByPageAndCondition" resultType="com.zed.pojo.StuInfo">
+    <select id="selectByPageAndCondition" resultType="com.zed.entity.StuInfo">
         select * from t_stuinfo
         <where>
             <if test="stuInfo.sno != null and stuInfo.sno !=''">
@@ -45,7 +45,7 @@
         </where>
     </select>
 
-    <select id="editStuInfo" resultType="com.zed.pojo.StuInfo">
+    <select id="editStuInfo" resultType="com.zed.entity.StuInfo">
         update t_stuinfo set
         sno = #{sno},departmentId = #{departmentId},name= #{name},major = #{major},gender = #{gender},tel=#{tel}
         where id = #{id}

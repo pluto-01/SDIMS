@@ -1,4 +1,4 @@
-package com.zed.pojo;
+package com.zed.entity;
 
 
 import java.util.List;

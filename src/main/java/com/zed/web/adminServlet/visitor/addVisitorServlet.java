@@ -1,7 +1,7 @@
 package com.zed.web.adminServlet.visitor;
 
 import com.alibaba.fastjson.JSON;
-import com.zed.pojo.Visitor;
+import com.zed.entity.Visitor;
 import com.zed.service.VisitorService;
 import com.zed.service.impl.VisitorServiceImpl;
 

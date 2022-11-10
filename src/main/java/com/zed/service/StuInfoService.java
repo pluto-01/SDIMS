@@ -1,7 +1,7 @@
 package com.zed.service;
 
-import com.zed.pojo.Page;
-import com.zed.pojo.StuInfo;
+import com.zed.entity.Page;
+import com.zed.entity.StuInfo;
 
 
 import java.util.List;

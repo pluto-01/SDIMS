@@ -1,10 +1,8 @@
 package com.zed.mapper;
 
-import com.zed.pojo.User;
+import com.zed.entity.User;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
-
-import java.util.List;
 
 public interface LoginMapper {
     /*

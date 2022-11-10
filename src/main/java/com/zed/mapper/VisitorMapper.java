@@ -1,6 +1,6 @@
 package com.zed.mapper;
 
-import com.zed.pojo.Visitor;
+import com.zed.entity.Visitor;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Select;
 

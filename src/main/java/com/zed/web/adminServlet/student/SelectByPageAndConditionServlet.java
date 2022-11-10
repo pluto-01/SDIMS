@@ -1,8 +1,8 @@
 package com.zed.web.adminServlet.student;
 
 import com.alibaba.fastjson.JSON;
-import com.zed.pojo.Page;
-import com.zed.pojo.StuInfo;
+import com.zed.entity.Page;
+import com.zed.entity.StuInfo;
 import com.zed.service.StuInfoService;
 import com.zed.service.impl.StuInfoServiceImpl;
 

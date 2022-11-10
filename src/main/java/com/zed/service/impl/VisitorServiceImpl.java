@@ -2,7 +2,7 @@ package com.zed.service.impl;
 
 
 import com.zed.mapper.VisitorMapper;
-import com.zed.pojo.Visitor;
+import com.zed.entity.Visitor;
 import com.zed.service.VisitorService;
 import com.zed.utils.SqlSessionFactoryUtils;
 import org.apache.ibatis.session.SqlSession;

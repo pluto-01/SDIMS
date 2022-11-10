@@ -1,6 +1,6 @@
 package com.zed.service;
 
-import com.zed.pojo.Visitor;
+import com.zed.entity.Visitor;
 
 import java.util.List;
 

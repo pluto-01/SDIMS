@@ -1,7 +1,6 @@
-package com.zed.pojo;
+package com.zed.entity;
 
 import com.alibaba.fastjson.annotation.JSONField;
-import com.fasterxml.jackson.annotation.JsonFormat;
 
 import java.sql.Date;
 

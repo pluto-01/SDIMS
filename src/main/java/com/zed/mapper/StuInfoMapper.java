@@ -66,7 +66,26 @@ public interface StuInfoMapper {
      */
     List<StuInfo> editStuInfo(StuInfo stuInfo);
 
+
+    /**
+     * 根据从前端获取的id删除对应行信息
+     * @param id
+     */
     void deleteById(int id);
+
+    /**
+     * 查询宿舍楼中所有宿舍的电话号码
+     * @return
+     */
+    @Select("select * from t_department")
+    List<StuInfo> selectDepartmentTel();
+
+    /**
+     * 根据宿舍号查询对于宿舍电话号码
+     * @param stuInfo
+     * @return
+     */
+    List<StuInfo> selectTelByCondition(StuInfo stuInfo);
 }
 
 

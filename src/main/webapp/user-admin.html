@@ -101,33 +101,33 @@
                         width="30%">
 
                     <!--对话框内容-->
-                    <el-form ref="form" :model="stuInfo" label-width="80px">
-                        <el-form-item label="学号" >
+                    <el-form  :model="stuInfo" label-width="80px" :rules="rules" ref="stuInfo">
+                        <el-form-item label="学号" prop="sno">
                             <el-input v-model="stuInfo.sno"></el-input>
                         </el-form-item>
 
-                        <el-form-item label="宿舍号">
+                        <el-form-item label="宿舍号" prop="departmentId">
                             <el-input v-model="stuInfo.departmentId"></el-input>
                         </el-form-item>
 
-                        <el-form-item label="姓名">
+                        <el-form-item label="姓名" prop="name">
                             <el-input v-model="stuInfo.name"></el-input>
                         </el-form-item>
 
-                        <el-form-item label="专业">
+                        <el-form-item label="专业" prop="major">
                             <el-input v-model="stuInfo.major"></el-input>
                         </el-form-item>
 
-                        <el-form-item label="性别">
+                        <el-form-item label="性别" prop="gender">
                             <el-input v-model="stuInfo.gender"></el-input>
                         </el-form-item>
 
-                        <el-form-item label="联系电话">
+                        <el-form-item label="联系电话" prop="tel">
                             <el-input v-model="stuInfo.tel"></el-input>
                         </el-form-item>
 
                         <el-form-item align="center">
-                            <el-button type="primary" @click="addStuInfo">提交</el-button>
+                            <el-button type="primary" @click="addStuInfo('stuInfo')">提交</el-button>
                             <el-button @click="closeDialog()">取消</el-button>
                         </el-form-item>
 
@@ -275,29 +275,29 @@
                     width="30%">
 
                 <!--对话框内容-->
-                <el-form ref="form" :model="stuInfo" label-width="80px">
+                <el-form ref="form" :model="propertyInfo" label-width="80px">
                     <el-form-item label="学号" >
-                        <el-input v-model="stuInfo.sno"></el-input>
+                        <el-input v-model="propertyInfo.sno"></el-input>
                     </el-form-item>
 
                     <el-form-item label="宿舍号">
-                        <el-input v-model="stuInfo.departmentId"></el-input>
+                        <el-input v-model="propertyInfo.departmentId"></el-input>
                     </el-form-item>
 
                     <el-form-item label="姓名">
-                        <el-input v-model="stuInfo.name"></el-input>
+                        <el-input v-model="propertyInfo.name"></el-input>
                     </el-form-item>
 
                     <el-form-item label="专业">
-                        <el-input v-model="stuInfo.major"></el-input>
+                        <el-input v-model="propertyInfo.major"></el-input>
                     </el-form-item>
 
                     <el-form-item label="性别">
-                        <el-input v-model="stuInfo.gender"></el-input>
+                        <el-input v-model="propertyInfo.gender"></el-input>
                     </el-form-item>
 
                     <el-form-item label="联系电话">
-                        <el-input v-model="stuInfo.tel"></el-input>
+                        <el-input v-model="propertyInfo.tel"></el-input>
                     </el-form-item>
 
                     <el-form-item align="center">
@@ -357,9 +357,9 @@
                                 show-overflow-tooltip>
                             <template slot-scope="scope">
                                 <el-row>
-                                    <el-button type="primary" @click="editInfo(scope.$index,scope.row);dialogFormVisible=true">编辑</el-button>
+                                    <el-button type="primary" @click="editInfo(scope.$index,scope.row);onShow2()">编辑</el-button>
 
-                                    <el-button type="danger" @click="isVisible(scope.row)">删除</el-button>
+                                    <el-button type="danger" @click="isVisible(scope.row);onShowDelete()">删除</el-button>
 
                                 </el-row>
                             </template>
@@ -369,7 +369,7 @@
                     <!--编辑学生信息对话框-->
                     <el-dialog
                             title="编辑学生信息"
-                            :visible.sync="dialogFormVisible"
+                            :visible.sync="dialogFormVisible2"
                             width="30%">
 
                         <!--对话框内容-->
@@ -409,12 +409,12 @@
                     <!--删除学生信息对话框-->
                     <el-dialog
                             title="提示"
-                            :visible.sync="centerDialogVisible"
+                            :visible.sync="centerDialogVisible2"
                             width="30%"
                             center>
                         <span>此操作将永久删除该行信息, 是否继续?</span>
                         <span slot="footer" class="dialog-footer">
-                            <el-button @click="centerDialogVisible = false">取 消</el-button>
+                            <el-button @click="centerDialogVisible2 = false">取 消</el-button>
                             <el-button type="primary" @click="deleteStuInfo">确 定</el-button>
                         </span>
                     </el-dialog>
@@ -618,6 +618,10 @@
                  *
                  * */
                 dialogVisible2:false,
+                //控制编辑对话框的打开与隐藏
+                dialogFormVisible2:false,
+                //控制删除对话框的打开与隐藏
+                centerDialogVisible2:false,
                 tableData2: [{
                     sno:"",
                     departmentId:"",
@@ -626,7 +630,7 @@
                     gender:"",
                     tel:"",
                 }],
-
+                propertyInfo:[],
                 /**
                  *
                  *
@@ -703,23 +707,31 @@
                     this.selectAll();
                 },
                 //对话框内容方法   即新增学生信息方法
-                addStuInfo(){
+                addStuInfo(formName){
                     let that = this;
-                    axios({
-                        method:"post",
-                        url:"http://localhost:8080/addStuServlet",
-                        data:that.stuInfo
-                    }).then(function(resp){
-                        if(resp.data == "success"){
-                            //关闭窗口
-                            that.dialogVisible = false;
-                            that.selectAll();
-                            that.$message({
-                                message: '恭喜你，添加成功',
-                                type: 'success'
-                            });
-                            that.stuInfo = [];
+                    this.$refs[formName].validate((valid) => {
+                        if (valid) {
+
+                            axios({
+                                method: "post",
+                                url: "http://localhost:8080/addStuServlet",
+                                data: that.stuInfo
+                            }).then(function (resp) {
+                                if (resp.data == "success") {
+                                    //关闭窗口
+                                    that.dialogVisible = false;
+                                    that.selectAll();
+                                    that.$message({
+                                        message: '恭喜你，添加成功',
+                                        type: 'success'
+                                    });
+                                    that.stuInfo = [];
+                                }
+                            })
+                        } else{
+                            return false;
                         }
+
                     })
                 },
                 onShow(){
@@ -821,6 +833,9 @@
                  * */
                 onShow2(){
                     this.dialogVisible2 = true;
+                },
+                onShowDelete(){
+                    this.centerFormVisible2 = true;
                 },
                 /**
                  *

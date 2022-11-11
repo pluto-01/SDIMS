@@ -54,4 +54,13 @@
     <delete id="deleteById">
         delete from  t_stuinfo where id = #{id}
     </delete>
+
+    <select id="selectTelByCondition" resultType="com.zed.entity.StuInfo">
+        select * from t_department
+        <where>
+            <if test="stuInfo.departmentId != null and stuInfo.departmentId !=''">
+                and departmentId = #{stuInfo.departmentId}
+            </if>
+        </where>
+    </select>
 </mapper>

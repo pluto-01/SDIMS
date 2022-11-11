@@ -148,4 +148,37 @@ public class StuInfoServiceImpl implements StuInfoService {
         sqlSession.close();
     }
 
+    @Override
+    public List<StuInfo> selectDepartmentTel() {
+        //获取SqlSession对象
+        SqlSession sqlSession = factory.openSession();
+
+        //获取UserMapper对象
+        StuInfoMapper mapper = sqlSession.getMapper(StuInfoMapper.class);
+
+        //调用方法
+        List<StuInfo> tels = mapper.selectDepartmentTel();
+
+        //释放资源
+        sqlSession.close();
+
+        return tels;
+    }
+
+    @Override
+    public List<StuInfo> selectTelByCondition(StuInfo stuInfo) {
+        //获取SqlSession对象
+        SqlSession sqlSession = factory.openSession();
+
+        //获取UserMapper对象
+        StuInfoMapper mapper = sqlSession.getMapper(StuInfoMapper.class);
+
+        List<StuInfo> deptTel = mapper.selectTelByCondition(stuInfo);
+
+        sqlSession.close();
+
+        return deptTel;
+    }
+
+
 }

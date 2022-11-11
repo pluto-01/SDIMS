@@ -2,6 +2,7 @@ package com.zed.service;
 
 import com.zed.entity.Page;
 import com.zed.entity.StuInfo;
+import org.apache.ibatis.annotations.Select;
 
 
 import java.util.List;
@@ -39,8 +40,30 @@ public interface StuInfoService {
     Page<StuInfo> selectByPageAndCondition(int currentPage,int pageSize,StuInfo stuInfo);
 
 
+    /**
+     * 编辑学生信息
+     * @param stuInfo
+     * @return
+     */
     void editStuInfo(StuInfo stuInfo);
 
+    /**
+     * 根据从前端获取的id删除对应行信息
+     * @param id
+     */
     void deleteStuInfo(int id);
+
+    /**
+     * 查询宿舍楼中所有宿舍的电话号码
+     * @return
+     */
+    List<StuInfo> selectDepartmentTel();
+
+    /**
+     * 根据宿舍号查询对于宿舍电话号码
+     * @param stuInfo
+     * @return
+     */
+    List<StuInfo> selectTelByCondition(StuInfo stuInfo);
 }
 

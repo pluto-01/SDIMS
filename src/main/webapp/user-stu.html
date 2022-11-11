@@ -126,7 +126,48 @@
         </div>
 
     </div>
+    <div class="showInfo" v-show="count == 2">
+        <el-form :inline="true" :model="telInfoByCondition" class="demo-form-inline">
+            <el-form-item label="宿舍号">
+                <el-input v-model="telInfoByCondition.departmentId" placeholder="输入宿舍号搜索"></el-input>
+            </el-form-item>
 
+            <el-form-item>
+                <el-button type="primary" @click="onSubmit2()">查询</el-button>
+            </el-form-item>
+        </el-form>
+
+
+        <div class="searchResults">
+            <template>
+                <el-table
+                        :data="tableData2"
+                        tooltip-effect="dark"
+                        style="width: 100%">
+                    <el-table-column
+                            type="index"
+                            width="50">
+                    </el-table-column>
+
+
+                    <el-table-column
+                            prop="departmentId"
+                            label="宿舍号"
+                            align="center">
+                    </el-table-column>
+
+                    <el-table-column
+                            prop="tel"
+                            label="电话号码"
+                            align="center">
+                    </el-table-column>
+
+                </el-table>
+
+            </template>
+        </div>
+
+    </div>
 
 </div>
 
@@ -134,6 +175,16 @@
     new Vue({
         el:"#container",
         data:{
+            /**
+             *
+             *
+             *
+             *
+             *导航第1栏的数据
+             *
+             *
+             *
+             * */
             count:1,
             users:[],
             // 表格数据
@@ -151,29 +202,41 @@
                 name:"",
                 }
             ],
-
+            /**
+             *
+             *
+             *
+             *
+             *导航第2栏的数据
+             *
+             *
+             *
+             * */
+            telInfoByCondition: {
+                departmentId:"",
+            },
+            // 表格数据
+            tableData2: [{
+            }],
+            multipleSelection2:[],
         },
+
         // 页面加载完成后，发送异步请求，获取数据
-        // mounted(){
-        //     let _this = this;
-        //     axios({
-        //         method:"post",
-        //         url:"http://localhost:8080/loginServlet"
-        //     }).then(function (resp){
-        //         _this.getUserName = resp.data;
-        //     })
-        // },
+        mounted(){
+            this.selectAll();
+            this.selectAll2();
+        },
         methods:{
 
             //查询分页数据
             selectAll(){
                 let _this = this;
-                axios({
-                    method:"get",
-                    url:"http://localhost:8080/selectByPageServlet"
-                }).then(function (resp){
-                    _this.tableData = resp.data;
-                })
+                // axios({
+                //     method:"get",
+                //     url:"http://localhost:8080/selectByPageServlet"
+                // }).then(function (resp){
+                //     _this.tableData = resp.data;
+                // })
                 // let _this = this;
                 // axios({
                 //     method:"post",
@@ -222,7 +285,41 @@
             resetForm(formName) {
                 this.$refs[formName].resetFields();
             },
-
+            /**
+             *
+             *
+             *
+             *
+             *导航第2栏的方法
+             *
+             *
+             *
+             * */
+            onSubmit2(){
+                if (this.telInfoByCondition.departmentId == null || this.telInfoByCondition.departmentId == "")
+                    this.selectAll2();
+                else
+                    this.selectDeptTelByCondition();
+            },
+            selectAll2(){
+                let _this = this;
+                axios({
+                    method:"post",
+                    url:"http://localhost:8080/selectDeptTelServlet",
+                }).then(function (resp){
+                    _this.tableData2 = resp.data;
+                })
+            },
+            selectDeptTelByCondition(){
+                let _this = this;
+                axios({
+                    method:"post",
+                    url:"http://localhost:8080/selectDeptTelByConditionServlet",
+                    data:this.telInfoByCondition
+                }).then(function (resp){
+                    _this.tableData2 = resp.data;
+                })
+            },
         }
     });
 </script>

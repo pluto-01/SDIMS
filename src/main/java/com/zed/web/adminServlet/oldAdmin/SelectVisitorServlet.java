@@ -1,4 +1,4 @@
-package com.zed.web.adminServlet.visitor;
+package com.zed.web.adminServlet.oldAdmin;
 
 import com.alibaba.fastjson.JSON;
 import com.zed.entity.Visitor;

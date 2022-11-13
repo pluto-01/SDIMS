@@ -16,61 +16,58 @@
 
 </head>
 
-<body>
-    <!-- 顶部 -->
+<body id="body">
+<!-- 顶部 -->
+<div id="container">
     <div class="banner">
-        <span>学生宿舍信息管理系统</span>
+        <span class="title">学生宿舍信息管理系统</span>
+        <span class="welcome" v-on="loginUser()">欢迎,{{user}}</span>
         <a href="http://localhost:8080/login.html" class="logout">退出登录</a>
     </div>
     <!-- 主体 -->
-    <div class="container" id="container">
+    <div class="container">
 
-            <el-row class="tac" style="margin:30px 0 0 20px">
-                <el-col :span="50">
-                    <el-menu
-                            default-active="1"
-                            class="el-menu-vertical-demo">
+        <el-row class="tac" style="margin:30px 0 0 20px">
+            <el-col :span="50">
+                <el-menu
+                        default-active="1"
+                        class="el-menu-vertical-demo">
 
-                        <el-menu-item index="1" @click="change1()">
-                            <i class="el-icon-menu"></i>
-                            <span slot="title">学生管理</span>
-                        </el-menu-item>
+                    <el-menu-item index="1" @click="change1()">
+                        <i class="el-icon-menu"></i>
+                        <span slot="title">学生管理</span>
+                    </el-menu-item>
 
-                        <el-menu-item index="2" @click="change2()">
-                            <i class="el-icon-menu"></i>
-                            <span slot="title">财产管理</span>
-                        </el-menu-item>
+                    <el-menu-item index="2" @click="change2()">
+                        <i class="el-icon-menu"></i>
+                        <span slot="title">财产管理</span>
+                    </el-menu-item>
 
-                        <el-menu-item index="3" @click="change3()">
-                            <i class="el-icon-menu"></i>
-                            <span slot="title">访客登记</span>
-                        </el-menu-item>
+                    <el-menu-item index="3" @click="change3()">
+                        <i class="el-icon-menu"></i>
+                        <span slot="title">访客登记</span>
+                    </el-menu-item>
 
-                        <el-menu-item index="4" @click="change4()">
-                            <i class="el-icon-menu"></i>
-                            <span slot="title">物品审核</span>
-                        </el-menu-item>
-<!--                        <el-menu-item-group index="3">-->
-<!--                            <template slot="title">出入登记</template>-->
-<!--                            <el-menu-item index="3-1">访客登记</el-menu-item>-->
-<!--                            <el-menu-item index="3-2">物品审核</el-menu-item>-->
-<!--                        </el-menu-item-group>-->
+                    <el-menu-item index="4" @click="change4()">
+                        <i class="el-icon-menu"></i>
+                        <span slot="title">物品审核</span>
+                    </el-menu-item>
 
-                        <el-menu-item index="5" @click="change5()">
-                            <i class="el-icon-menu"></i>
-                            <span slot="title">报修管理</span>
-                        </el-menu-item>
+                    <el-menu-item index="5" @click="change5()">
+                        <i class="el-icon-menu"></i>
+                        <span slot="title">报修管理</span>
+                    </el-menu-item>
 
-                        <el-menu-item index="6" @click="change6()">
-                            <i class="el-icon-menu"></i>
-                            <span slot="title">费用明细</span>
-                        </el-menu-item>
+                    <el-menu-item index="6" @click="change6()">
+                        <i class="el-icon-menu"></i>
+                        <span slot="title">费用明细</span>
+                    </el-menu-item>
 
-                    </el-menu>
-                </el-col>
+                </el-menu>
+            </el-col>
 
-            </el-row>
-<!--        </div>-->
+        </el-row>
+        <!--            </div>-->
         <!-- 信息展示 -->
         <div class="showInfo" v-show="count == 1">
             <el-form :inline="true" :model="stuInfoByCondition" class="demo-form-inline">
@@ -94,46 +91,45 @@
                 <el-button type="primary" plain @click="onShow()">新增信息</el-button>
                 <el-button type="danger" plain>批量删除</el-button>
             </el-row>
-                <!--添加对话框表单-->
-                <el-dialog
-                        title="新增学生信息"
-                        :visible.sync="dialogVisible"
-                        width="30%">
+            <!--添加对话框表单-->
+            <el-dialog
+                    title="新增学生信息"
+                    :visible.sync="dialogVisible"
+                    width="30%">
 
-                    <!--对话框内容-->
-                    <el-form  :model="stuInfo" label-width="80px" :rules="rules" ref="stuInfo">
-                        <el-form-item label="学号" prop="sno">
-                            <el-input v-model="stuInfo.sno"></el-input>
-                        </el-form-item>
+                <!--对话框内容-->
+                <el-form :model="stuInfo" label-width="80px" :rules="rules" ref="stuInfo">
+                    <el-form-item label="学号" prop="sno">
+                        <el-input v-model="stuInfo.sno"></el-input>
+                    </el-form-item>
 
-                        <el-form-item label="宿舍号" prop="departmentId">
-                            <el-input v-model="stuInfo.departmentId"></el-input>
-                        </el-form-item>
+                    <el-form-item label="宿舍号" prop="departmentId">
+                        <el-input v-model="stuInfo.departmentId"></el-input>
+                    </el-form-item>
 
-                        <el-form-item label="姓名" prop="name">
-                            <el-input v-model="stuInfo.name"></el-input>
-                        </el-form-item>
+                    <el-form-item label="姓名" prop="name">
+                        <el-input v-model="stuInfo.name"></el-input>
+                    </el-form-item>
 
-                        <el-form-item label="专业" prop="major">
-                            <el-input v-model="stuInfo.major"></el-input>
-                        </el-form-item>
+                    <el-form-item label="专业" prop="major">
+                        <el-input v-model="stuInfo.major"></el-input>
+                    </el-form-item>
 
-                        <el-form-item label="性别" prop="gender">
-                            <el-input v-model="stuInfo.gender"></el-input>
-                        </el-form-item>
+                    <el-form-item label="性别" prop="gender">
+                        <el-input v-model="stuInfo.gender"></el-input>
+                    </el-form-item>
 
-                        <el-form-item label="联系电话" prop="tel">
-                            <el-input v-model="stuInfo.tel"></el-input>
-                        </el-form-item>
+                    <el-form-item label="联系电话" prop="tel">
+                        <el-input v-model="stuInfo.tel"></el-input>
+                    </el-form-item>
 
-                        <el-form-item align="center">
-                            <el-button type="primary" @click="addStuInfo('stuInfo')">提交</el-button>
-                            <el-button @click="closeDialog()">取消</el-button>
-                        </el-form-item>
+                    <el-form-item align="center">
+                        <el-button type="primary" @click="addStuInfo('stuInfo')">提交</el-button>
+                        <el-button @click="closeDialog()">取消</el-button>
+                    </el-form-item>
 
-                    </el-form>
-                </el-dialog>
-
+                </el-form>
+            </el-dialog>
 
 
             <div class="searchResults">
@@ -188,7 +184,9 @@
                                 show-overflow-tooltip>
                             <template slot-scope="scope">
                                 <el-row>
-                                    <el-button type="primary" @click="editInfo(scope.$index,scope.row);dialogFormVisible=true">编辑</el-button>
+                                    <el-button type="primary"
+                                               @click="editInfo(scope.$index,scope.row);dialogFormVisible=true">编辑
+                                    </el-button>
 
                                     <el-button type="danger" @click="isVisible(scope.row)">删除</el-button>
 
@@ -205,7 +203,7 @@
 
                         <!--对话框内容-->
                         <el-form ref="form" :model="editStu" label-width="80px">
-                            <el-form-item label="学号" >
+                            <el-form-item label="学号">
                                 <el-input v-model="editStu.sno"></el-input>
                             </el-form-item>
 
@@ -245,22 +243,22 @@
                             center>
                         <span>此操作将永久删除该行信息, 是否继续?</span>
                         <span slot="footer" class="dialog-footer">
-                            <el-button @click="centerDialogVisible = false">取 消</el-button>
-                            <el-button type="primary" @click="deleteStuInfo">确 定</el-button>
-                        </span>
+                                <el-button @click="centerDialogVisible = false">取 消</el-button>
+                                <el-button type="primary" @click="deleteStuInfo">确 定</el-button>
+                            </span>
                     </el-dialog>
                 </template>
             </div>
             <!--分页工具条-->
 
             <el-pagination
-                @size-change="handleSizeChange"
-                @current-change="handleCurrentChange"
-                :current-page="currentPage"
-                :page-sizes="[5, 10, 15, 20]"
-                :page-size="100"
-                layout="total, sizes, prev, pager, next, jumper"
-                :total="totalCount">
+                    @size-change="handleSizeChange"
+                    @current-change="handleCurrentChange"
+                    :current-page="currentPage"
+                    :page-sizes="[5, 10, 15, 20]"
+                    :page-size="100"
+                    layout="total, sizes, prev, pager, next, jumper"
+                    :total="totalCount">
             </el-pagination>
         </div>
         <div class="showInfo" v-show="count == 2">
@@ -276,7 +274,7 @@
 
                 <!--对话框内容-->
                 <el-form ref="form" :model="propertyInfo" label-width="80px">
-                    <el-form-item label="学号" >
+                    <el-form-item label="学号">
                         <el-input v-model="propertyInfo.sno"></el-input>
                     </el-form-item>
 
@@ -307,7 +305,6 @@
 
                 </el-form>
             </el-dialog>
-
 
 
             <div class="searchResults">
@@ -357,7 +354,8 @@
                                 show-overflow-tooltip>
                             <template slot-scope="scope">
                                 <el-row>
-                                    <el-button type="primary" @click="editInfo(scope.$index,scope.row);onShow2()">编辑</el-button>
+                                    <el-button type="primary" @click="editInfo(scope.$index,scope.row);onShow2()">编辑
+                                    </el-button>
 
                                     <el-button type="danger" @click="isVisible(scope.row);onShowDelete()">删除</el-button>
 
@@ -374,7 +372,7 @@
 
                         <!--对话框内容-->
                         <el-form ref="form" :model="editStu" label-width="80px">
-                            <el-form-item label="学号" >
+                            <el-form-item label="学号">
                                 <el-input v-model="editStu.sno"></el-input>
                             </el-form-item>
 
@@ -414,9 +412,9 @@
                             center>
                         <span>此操作将永久删除该行信息, 是否继续?</span>
                         <span slot="footer" class="dialog-footer">
-                            <el-button @click="centerDialogVisible2 = false">取 消</el-button>
-                            <el-button type="primary" @click="deleteStuInfo">确 定</el-button>
-                        </span>
+                                <el-button @click="centerDialogVisible2 = false">取 消</el-button>
+                                <el-button type="primary" @click="deleteStuInfo">确 定</el-button>
+                            </span>
                     </el-dialog>
                 </template>
             </div>
@@ -451,7 +449,8 @@
                     </el-form-item>
 
                     <el-form-item label="日期">
-                        <el-date-picker type="date" placeholder="选择日期" v-model="visitorInfo.date" style="width: 100%;"></el-date-picker>
+                        <el-date-picker type="date" placeholder="选择日期" v-model="visitorInfo.date"
+                                        style="width: 100%;"></el-date-picker>
                     </el-form-item>
 
                     <el-form-item align="center">
@@ -461,7 +460,6 @@
 
                 </el-form>
             </el-dialog>
-
 
 
             <div class="searchResults">
@@ -512,7 +510,7 @@
 
                     </el-table>
                 </template>
-        </div>
+            </div>
         </div>
         <div class="showInfo" v-show="count == 4">
             444444444444444
@@ -524,366 +522,364 @@
             66666666666666
         </div>
     </div>
-    <script>
-        new Vue({
-            el:"#container",
-            data:{
+</div>
+<script>
+    new Vue({
+        el: "#container",
+        data: {
             /**
              *
              *
              *
              *
-              *导航第1栏的数据
+             *导航第1栏的数据
              *
              *
              *
              * */
-                    count:1,
-                    users:[],
-                    // 表格数据
-                    tableData: [{
-                        sno:"",
-                        departmentId:"",
-                        name:"",
-                        major:"",
-                        gender:"",
-                        tel:"",
-                    }],
-                    multipleSelection:[],
-                    //搜索数据
-                    stuInfoByCondition: {
-                        sno:"",
-                        departmentId:"",
-                        name:""
-                    },
-                    //编辑学生信息
-                    editStu:[],
-                //获取要删除行的学生信息的id
-                id:"",
-                //控制新增信息对话框的打开与隐藏
-                dialogVisible : false,
-                //控制编辑对话框的打开与隐藏
-               dialogFormVisible:false,
-                //控制删除对话框的打开与隐藏
-                centerDialogVisible:false,
-                //对话框表单数据
-                    stuInfo: {
-                        sno:"",
-                        departmentId:"",
-                        name:"",
-                        major:"",
-                        gender:"",
-                        tel:"",
-                    },
-                    rules: {
-                        sno: [
-                            { required: true, message: '请输入学生学号', trigger: 'blur' },
-                            { min: 9, max: 12, message: '必填,长度在9至12个字符', trigger: 'blur' }
-                        ],
-                        departmentId: [
-                            { required: true, message: '请输入学生宿舍号', trigger: 'blur' },
-                            { min: 2, max: 5, message: '必填,长度在2至5个字符', trigger: 'blur' }
-                        ],
-                        name: [
-                                { required: true, message: '请输入学生姓名', trigger: 'blur' },
-                                { min: 2, max: 5, message: '必填,长度在2至5个字符', trigger: 'blur' }
-                            ],
-                        major: [
-                            { required: true, message: '请输入专业名称', trigger: 'blur' },
-                            { min: 2, max: 6, message: '必填,长度在2至6个字符', trigger: 'blur' }
-                        ],
-                        gender: [
-                            { required: true, message: '请输入学生性别', trigger: 'blur' },
-                            { min: 1, max: 1, message: '必填,长度为1个字符', trigger: 'blur' }
-                        ],
-                        tel: [
-                            { required: true,message: '请输入学生电话号码', trigger: 'blur' },
-                            { min: 11, max: 11, message: '必填', trigger: 'blur' }
-                        ],
-                        },
+            count: 1,
+            user: "李晨",
+            // 表格数据
+            tableData: [{
+                sno: "",
+                departmentId: "",
+                name: "",
+                major: "",
+                gender: "",
+                tel: "",
+            }],
+            multipleSelection: [],
+            //搜索数据
+            stuInfoByCondition: {
+                sno: "",
+                departmentId: "",
+                name: ""
+            },
+            //编辑学生信息
+            editStu: [],
+            //获取要删除行的学生信息的id
+            id: "",
+            //控制新增信息对话框的打开与隐藏
+            dialogVisible: false,
+            //控制编辑对话框的打开与隐藏
+            dialogFormVisible: false,
+            //控制删除对话框的打开与隐藏
+            centerDialogVisible: false,
+            //对话框表单数据
+            stuInfo: {
+                sno: "",
+                departmentId: "",
+                name: "",
+                major: "",
+                gender: "",
+                tel: "",
+            },
+            rules: {
+                sno: [
+                    {required: true, message: '请输入学生学号', trigger: 'blur'},
+                    {min: 9, max: 12, message: '必填,长度在9至12个字符', trigger: 'blur'}
+                ],
+                departmentId: [
+                    {required: true, message: '请输入学生宿舍号', trigger: 'blur'},
+                    {min: 2, max: 5, message: '必填,长度在2至5个字符', trigger: 'blur'}
+                ],
+                name: [
+                    {required: true, message: '请输入学生姓名', trigger: 'blur'},
+                    {min: 2, max: 5, message: '必填,长度在2至5个字符', trigger: 'blur'}
+                ],
+                major: [
+                    {required: true, message: '请输入专业名称', trigger: 'blur'},
+                    {min: 2, max: 6, message: '必填,长度在2至6个字符', trigger: 'blur'}
+                ],
+                gender: [
+                    {required: true, message: '请输入学生性别', trigger: 'blur'},
+                    {min: 1, max: 1, message: '必填,长度为1个字符', trigger: 'blur'}
+                ],
+                tel: [
+                    {required: true, message: '请输入学生电话号码', trigger: 'blur'},
+                    {min: 11, max: 11, message: '必填', trigger: 'blur'}
+                ],
+            },
 
-                    //分页工具条数据
-                    currentPage: 1, //当前页码
-                    totalCount:100, //总记录数
-                    pageSize:5,     //每页显示条数 5
+            //分页工具条数据
+            currentPage: 1, //当前页码
+            totalCount: 100, //总记录数
+            pageSize: 5,     //每页显示条数 5
 
-                /**
-                 *
-                 *
-                 *
-                 *
-                 *导航第2栏的数据
-                 *
-                 *
-                 *
-                 * */
-                dialogVisible2:false,
-                //控制编辑对话框的打开与隐藏
-                dialogFormVisible2:false,
-                //控制删除对话框的打开与隐藏
-                centerDialogVisible2:false,
-                tableData2: [{
-                    sno:"",
-                    departmentId:"",
-                    name:"",
-                    major:"",
-                    gender:"",
-                    tel:"",
-                }],
-                propertyInfo:[],
-                /**
-                 *
-                 *
-                 *
-                 *
-                 *导航第3栏的数据
-                 *
-                 *
-                 *
-                 * */
-                dialogVisible3:false,
-                tableData3: [{
-                    visitor:"",
-                    gender:"",
-                    reason:"",
-                    tel:"",
-                    date:"",
-                }],
-                visitorInfo:{
-                    visitor:"",
-                    gender:"",
-                    reason:"",
-                    tel:"",
-                    date:"",
+            /**
+             *
+             *
+             *
+             *
+             *导航第2栏的数据
+             *
+             *
+             *
+             * */
+            dialogVisible2: false,
+            //控制编辑对话框的打开与隐藏
+            dialogFormVisible2: false,
+            //控制删除对话框的打开与隐藏
+            centerDialogVisible2: false,
+            tableData2: [{
+                sno: "",
+                departmentId: "",
+                name: "",
+                major: "",
+                gender: "",
+                tel: "",
+            }],
+            propertyInfo: [],
+            /**
+             *
+             *
+             *
+             *
+             *导航第3栏的数据
+             *
+             *
+             *
+             * */
+            dialogVisible3: false,
+            tableData3: [{
+                visitor: "",
+                gender: "",
+                reason: "",
+                tel: "",
+                date: "",
+            }],
+            visitorInfo: {
+                visitor: "",
+                gender: "",
+                reason: "",
+                tel: "",
+                date: "",
+            }
+        },
+        // 页面加载完成后，发送异步请求，获取数据
+        mounted() {
+            this.selectAll();
+            this.selectAll3();
+            this.loginUser();
+        },
+        methods: {
+            //查询分页数据
+            selectAll() {
+                let _this = this;
+                axios({
+                    method: "post",
+                    url: "http://localhost:8080/admin/selectByPageAndCondition?currentPage=" + _this.currentPage + "&pageSize=" + _this.pageSize,
+                    data: this.stuInfoByCondition
+                }).then(function (resp) {
+                    _this.tableData = resp.data.rows;
+                    _this.totalCount = resp.data.totalCount;
+                    _this.username = resp.data.username;
+                })
+            },
+            loginUser(){
+                document.cookie
+            },
+            change1() {
+                this.count = 1
+            },
+            change2() {
+                this.count = 2
+            },
+            change3() {
+                this.count = 3
+            },
+            change4() {
+                this.count = 4
+            },
+            change5() {
+                this.count = 5
+            },
+            change6() {
+                this.count = 6
+            },
+            //搜索方法
+            onSubmit() {
+                /*console.log(this.stuInfoByCondition);*/
+                this.selectAll();
+            },
+            //对话框内容方法   即新增学生信息方法
+            addStuInfo(formName) {
+                let that = this;
+                this.$refs[formName].validate((valid) => {   /*表单非空验证*/
+                    if (valid) {
+
+                        axios({
+                            method: "post",
+                            url: "http://localhost:8080/admin/addStu",
+                            data: that.stuInfo
+                        }).then(function (resp) {
+                            if (resp.data == "success") {
+                                //关闭窗口
+                                that.dialogVisible = false;
+                                that.selectAll();
+                                that.$message({
+                                    message: '恭喜你，添加成功',
+                                    type: 'success'
+                                });
+                                that.stuInfo = [];
+                            }
+                        })
+                    } else {
+                        return false;
+                    }
+
+                })
+            },
+            onShow() {
+                this.dialogVisible = true;
+            },
+            closeDialog() {
+                this.dialogVisible = false;
+            },
+            // 表格方法
+            toggleSelection(rows) {
+                if (rows) {
+                    rows.forEach(row => {
+                        this.$refs.multipleTable.toggleRowSelection(row);
+                    });
+                } else {
+                    this.$refs.multipleTable.clearSelection();
                 }
             },
-            // 页面加载完成后，发送异步请求，获取数据
-            mounted(){
+            //实现编辑学生数据的数据回显
+            editInfo(index, row) {
+
+                this.dialogFormVisible = true;
+                this.editStu = row;
+            },
+            //编辑学生数据
+            editStuInfo() {
+                let that = this;
+                axios({
+                    method: "post",
+                    url: "http://localhost:8080/admin/editInfo",
+                    data: that.editStu
+                }).then(function (resp) {
+                    if (resp.data == "success") {
+                        //关闭窗口
+                        that.dialogFormVisible = false;
+                        that.selectAll();
+                        that.$message({
+                            message: '恭喜你，编辑成功',
+                            type: 'success'
+                        });
+                    }
+                })
+            },
+            //点击删除按钮后出现确认弹框
+            isVisible(row) {
+                this.centerDialogVisible = true;
+                this.id = row.id;
+            },
+            //删除学生信息
+            deleteStuInfo() {
+                let that = this;
+                axios({
+                    method: "post",
+                    url: "http://localhost:8080/admin/deleteStu",
+                    data: that.id
+                }).then(function (resp) {
+                    if (resp.data == "success") {
+                        //关闭窗口
+                        that.centerDialogVisible = false;
+                        that.selectAll();
+                        that.$message({
+                            message: '恭喜你，删除成功',
+                            type: 'success'
+                        });
+                    }
+                })
+            },
+            //复选框选中后执行的方法
+            handleSelectionChange(val) {
+                this.multipleSelection = val;
+                console.log(this.multipleSelection);
+            },
+
+
+            resetForm(formName) {
+                this.$refs[formName].resetFields();
+            },
+            //分页工具条方法
+            handleSizeChange(val) {
+                //console.log(`每页 ${val} 条`);
+                this.pageSize = val;
                 this.selectAll();
-                this.selectAll3();
+            },
+            handleCurrentChange(val) {
+                //console.log(`当前页: ${val}`);
+                this.currentPage = val;
+                this.selectAll();
 
             },
-            methods:{
-                //查询分页数据
-                selectAll(){
-                    // let _this = this;
-                    // axios({
-                    //     method:"get",
-                    //     url:"http://localhost:8080/selectByPageServlet"
-                    // }).then(function (resp){
-                    //     _this.tableData = resp.data;
-                    // })
-                    let _this = this;
-                    axios({
-                        method:"post",
-                        url:"http://localhost:8080/selectByPageAndConditionServlet?currentPage="+ _this.currentPage +"&pageSize="+ _this.pageSize,
-                        data:this.stuInfoByCondition
-                    }).then(function (resp){
-                        _this.tableData = resp.data.rows;
-                        _this.totalCount = resp.data.totalCount;
-                    })
-                },
-                change1(){
-                    this.count=1
-                },
-                change2(){
-                    this.count=2
-                },
-                change3(){
-                    this.count=3
-                },
-                change4(){
-                    this.count=4
-                },
-                change5(){
-                    this.count=5
-                },
-                change6(){
-                    this.count=6
-                },
-                //搜索方法
-                onSubmit() {
-                    /*console.log(this.stuInfoByCondition);*/
-                    this.selectAll();
-                },
-                //对话框内容方法   即新增学生信息方法
-                addStuInfo(formName){
-                    let that = this;
-                    this.$refs[formName].validate((valid) => {
-                        if (valid) {
-
-                            axios({
-                                method: "post",
-                                url: "http://localhost:8080/addStuServlet",
-                                data: that.stuInfo
-                            }).then(function (resp) {
-                                if (resp.data == "success") {
-                                    //关闭窗口
-                                    that.dialogVisible = false;
-                                    that.selectAll();
-                                    that.$message({
-                                        message: '恭喜你，添加成功',
-                                        type: 'success'
-                                    });
-                                    that.stuInfo = [];
-                                }
-                            })
-                        } else{
-                            return false;
-                        }
-
-                    })
-                },
-                onShow(){
-                    this.dialogVisible = true;
-                },
-                closeDialog(){
-                    this.dialogVisible = false;
-                },
-                // 表格方法
-                toggleSelection(rows) {
-                    if (rows) {
-                        rows.forEach(row => {
-                            this.$refs.multipleTable.toggleRowSelection(row);
+            /**
+             *
+             *
+             *
+             *
+             *导航第2栏的方法
+             *
+             *
+             *
+             * */
+            onShow2() {
+                this.dialogVisible2 = true;
+            },
+            onShowDelete() {
+                this.centerFormVisible2 = true;
+            },
+            /**
+             *
+             *
+             *
+             *
+             *导航第3栏的方法
+             *
+             *
+             *
+             * */
+            onShow3() {
+                this.dialogVisible3 = true;
+            },
+            selectAll3() {
+                let _this = this;
+                axios({
+                    method: "get",
+                    url: "http://localhost:8080/admin/selectVisitor"
+                }).then(function (resp) {
+                    _this.tableData3 = resp.data;
+                })
+            },
+            addVisitorInfo() {
+                let that = this;
+                axios({
+                    method: "post",
+                    url: "http://localhost:8080/admin/addVisitor",
+                    data: that.visitorInfo
+                }).then(function (resp) {
+                    if (resp.data == "success") {
+                        //关闭窗口
+                        that.dialogVisible3 = false;
+                        that.selectAll3();
+                        that.$message({
+                            message: '恭喜你，添加成功',
+                            type: 'success'
                         });
-                    } else {
-                        this.$refs.multipleTable.clearSelection();
+                        that.visitorInfo = [];
                     }
-                },
-                //实现编辑学生数据的数据回显
-                editInfo(index,row){
-
-                    this.dialogFormVisible = true;
-                    this.editStu = row;
-                },
-                //编辑学生数据
-                editStuInfo(){
-                    let that = this;
-                    axios({
-                        method:"post",
-                        url:"http://localhost:8080/editInfoServlet",
-                        data:that.editStu
-                    }).then(function(resp){
-                        if(resp.data == "success"){
-                            //关闭窗口
-                            that.dialogFormVisible = false;
-                            that.selectAll();
-                            that.$message({
-                                message: '恭喜你，编辑成功',
-                                type: 'success'
-                            });
-                        }
-                    })
-                },
-                //点击删除按钮后出现确认弹框
-                isVisible(row){
-                    this.centerDialogVisible = true;
-                    this.id = row.id;
-                },
-                //删除学生信息
-                deleteStuInfo(){
-                    let that = this;
-                    axios({
-                        method:"post",
-                        url:"http://localhost:8080/deleteStuServlet",
-                        data:that.id
-                    }).then(function(resp){
-                        if(resp.data == "success"){
-                            //关闭窗口
-                            that.centerDialogVisible = false;
-                            that.selectAll();
-                            that.$message({
-                                message: '恭喜你，删除成功',
-                                type: 'success'
-                            });
-                        }
-                    })
-                },
-                //复选框选中后执行的方法
-                handleSelectionChange(val) {
-                    this.multipleSelection = val;
-                    console.log(this.multipleSelection);
-                },
-
-
-                resetForm(formName) {
-                    this.$refs[formName].resetFields();
-                },
-                //分页工具条方法
-                handleSizeChange(val) {
-                    //console.log(`每页 ${val} 条`);
-                    this.pageSize = val;
-                    this.selectAll();
-                },
-                handleCurrentChange(val) {
-                    //console.log(`当前页: ${val}`);
-                    this.currentPage = val;
-                    this.selectAll();
-
-                },
-                /**
-                 *
-                 *
-                 *
-                 *
-                 *导航第2栏的方法
-                 *
-                 *
-                 *
-                 * */
-                onShow2(){
-                    this.dialogVisible2 = true;
-                },
-                onShowDelete(){
-                    this.centerFormVisible2 = true;
-                },
-                /**
-                 *
-                 *
-                 *
-                 *
-                 *导航第3栏的方法
-                 *
-                 *
-                 *
-                 * */
-                onShow3(){
-                    this.dialogVisible3 = true;
-                },
-                selectAll3(){
-                    let _this = this;
-                    axios({
-                        method:"get",
-                        url:"http://localhost:8080/selectVisitorServlet"
-                    }).then(function (resp){
-                        _this.tableData3 = resp.data;
-                    })
-                },
-                addVisitorInfo(){
-                    let that = this;
-                    axios({
-                        method:"post",
-                        url:"http://localhost:8080/addVisitorServlet",
-                        data:that.visitorInfo
-                    }).then(function(resp){
-                        if(resp.data == "success"){
-                            //关闭窗口
-                            that.dialogVisible3 = false;
-                            that.selectAll3();
-                            that.$message({
-                                message: '恭喜你，添加成功',
-                                type: 'success'
-                            });
-                            that.visitorInfo = [];
-                        }
-                    })
-                },
-                closeDialog3(){
-                    this.dialogVisible3 = true;
-                },
-            }
-        });
-    </script>
+                })
+            },
+            closeDialog3() {
+                this.dialogVisible3 = true;
+            },
+        }
+    });
+</script>
 </body>
 
 </html>

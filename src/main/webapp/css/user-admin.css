@@ -11,10 +11,18 @@
     background-color: rgba(64,158,255, 0.9);
 }
 
-.banner span {
+.banner .title {
     line-height: 80px;
     font-size: 30px;
     padding-left: 10px;
+}
+
+.welcome{
+    position: absolute;
+    right: 80px;
+    top: 35px;
+    font-size: 13px;
+    color: rgb(252, 252, 252);
 }
 
 .logout{

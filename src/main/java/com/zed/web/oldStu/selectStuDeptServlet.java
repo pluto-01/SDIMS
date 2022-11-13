@@ -1,4 +1,4 @@
-package com.zed.web.stuServlet;
+package com.zed.web.oldStu;
 
 import javax.servlet.*;
 import javax.servlet.http.*;

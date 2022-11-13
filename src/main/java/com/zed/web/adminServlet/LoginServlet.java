@@ -1,4 +1,4 @@
-package com.zed.web.adminServlet.student;
+package com.zed.web.adminServlet;
 
 import com.zed.mapper.LoginMapper;
 import com.zed.entity.User;
@@ -13,6 +13,7 @@ import javax.servlet.annotation.*;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.PrintWriter;
+import java.net.URLEncoder;
 
 @WebServlet("/loginServlet")
 public class LoginServlet extends HttpServlet {
@@ -48,34 +49,31 @@ public class LoginServlet extends HttpServlet {
         //判断user不为null，则登录成功  否则登录失败
         if (value.equals("1")) {
             if (user1 != null) {
+//                HttpSession session1 = request.getSession();
+//                session1.setAttribute("username",user1.getUsername());
+                Cookie cookie = new Cookie("username", URLEncoder.encode(user1.getName(),"utf-8"));
+                response.addCookie(cookie);
                 request.getRequestDispatcher("/user-admin.html").forward(request, response);
-//                HttpSession session = request.getSession();
-//                session.setAttribute("getUserName",user1);
-//
-//                String contextPath =request.getContextPath();
-//                response.sendRedirect(contextPath+"/getUserInfoServlet");
-
             }
             else
                 writer.write("登录失败");
         }
         if (value.equals("2")) {
             if (user2 != null)
-
             {
-//                HttpSession session = request.getSession();
-//                session.setAttribute("getUserInfo",user2);
-
-//                String contextPath =request.getContextPath();
-//                response.sendRedirect(contextPath+"/getUserInfoServlet");
+                Cookie cookie = new Cookie("username",user2.getUsername());
+                response.addCookie(cookie);
                 request.getRequestDispatcher("/user-stu.html").forward(request, response);
             }
             else
                 writer.write("登录失败");
         }
         if (value.equals("3")) {
-            if (user3 != null)
+            if (user3 != null) {
+                HttpSession session3 = request.getSession();
+                session3.setAttribute("username", user3.getUsername());
                 request.getRequestDispatcher("/user-worker.html").forward(request, response);
+            }
             else
                 writer.write("登录失败");
         }

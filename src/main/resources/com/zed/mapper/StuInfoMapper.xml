@@ -20,7 +20,7 @@
             </if>
 
             <if test="stuInfo.name != null and stuInfo.name !=''">
-                and `name` = #{stuInfo.name}
+                and `name` like #{stuInfo.name}
             </if>
         </where>
 
@@ -57,10 +57,6 @@
 
     <select id="selectTelByCondition" resultType="com.zed.entity.StuInfo">
         select * from t_department
-        <where>
-            <if test="stuInfo.departmentId != null and stuInfo.departmentId !=''">
-                and departmentId = #{stuInfo.departmentId}
-            </if>
-        </where>
+        where departmentId = #{departmentId}
     </select>
 </mapper>

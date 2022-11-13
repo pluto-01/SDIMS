@@ -186,7 +186,6 @@
              *
              * */
             count:1,
-            users:[],
             // 表格数据
             tableData: [{
             }],
@@ -305,7 +304,7 @@
                 let _this = this;
                 axios({
                     method:"post",
-                    url:"http://localhost:8080/selectDeptTelServlet",
+                    url:"http://localhost:8080/stu/selectDeptTel",
                 }).then(function (resp){
                     _this.tableData2 = resp.data;
                 })
@@ -314,7 +313,7 @@
                 let _this = this;
                 axios({
                     method:"post",
-                    url:"http://localhost:8080/selectDeptTelByConditionServlet",
+                    url:"http://localhost:8080/stu/selectDeptTelByCondition",
                     data:this.telInfoByCondition
                 }).then(function (resp){
                     _this.tableData2 = resp.data;

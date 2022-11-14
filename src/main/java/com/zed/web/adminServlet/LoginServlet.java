@@ -61,7 +61,7 @@ public class LoginServlet extends HttpServlet {
         if (value.equals("2")) {
             if (user2 != null)
             {
-                Cookie cookie = new Cookie("username",user2.getUsername());
+                Cookie cookie = new Cookie("username", URLEncoder.encode(user2.getName(),"utf-8"));
                 response.addCookie(cookie);
                 request.getRequestDispatcher("/user-stu.html").forward(request, response);
             }

@@ -8,10 +8,12 @@ import com.zed.service.impl.StuInfoServiceImpl;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.BufferedReader;
 import java.io.IOException;
+import java.net.URLDecoder;
 import java.util.List;
 
 @WebServlet("/stu/*")
@@ -65,5 +67,19 @@ public class StudentServlet extends BaseServlet{
         response.setContentType("text/json;charset=utf-8");
         response.getWriter().write(jsonString);
     }
+    public void getCookie(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
+        Cookie[] cookies = request.getCookies();
 
+        String value = "";
+        for(Cookie cookie : cookies){
+            String name = cookie.getName();
+            if ("username".equals(name)) {
+                value = URLDecoder.decode(cookie.getValue(),"utf-8");
+                break;
+            }
+        }
+        String jsonString = JSON.toJSONString(value);
+        response.setContentType("text/json;charset=utf-8");
+        response.getWriter().write(jsonString);
+    }
 }

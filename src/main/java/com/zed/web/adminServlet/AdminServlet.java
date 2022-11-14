@@ -92,17 +92,6 @@ public class AdminServlet extends BaseServlet{
         int currentPage = Integer.parseInt(_currentPage);
         int pageSize = Integer.parseInt(_pageSize);
 
-//        Cookie[] cookies = request.getCookies();
-//        Cookie sCookie = null;
-//        String cookievalue = "";
-//        for (int i = 0; i < cookies.length; i++){
-//            sCookie =cookies[i];
-//            if (sCookie.getName() !=null && sCookie.getName().equals("username"))
-//                cookievalue = URLDecoder.decode(sCookie.getValue(),"utf-8");
-//        }
-
-
-
         //获取查询条件对象
         BufferedReader br = request.getReader();
         String params = br.readLine();
@@ -115,12 +104,10 @@ public class AdminServlet extends BaseServlet{
 
         //将数据转为JSON
         String jsonString = JSON.toJSONString(page);
-//        String jsonString2 = JSON.toJSONString(cookievalue);
         //写数据
         //防止中文乱码
         response.setContentType("text/json;charset=utf-8");
         response.getWriter().write(jsonString);
-//        response.getWriter().write(jsonString2);
     }
     public void selectByPage(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
         request.setCharacterEncoding("UTF-8");
@@ -175,7 +162,21 @@ public class AdminServlet extends BaseServlet{
         response.setContentType("text/json;charset=utf-8");
         response.getWriter().write(jsonString);
     }
+    public void getCookie(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
+        Cookie[] cookies = request.getCookies();
 
+        String value = "";
+        for(Cookie cookie : cookies){
+            String name = cookie.getName();
+            if ("username".equals(name)) {
+                value = URLDecoder.decode(cookie.getValue(),"utf-8");
+                break;
+            }
+        }
+        String jsonString = JSON.toJSONString(value);
+        response.setContentType("text/json;charset=utf-8");
+        response.getWriter().write(jsonString);
+    }
 
 }
 

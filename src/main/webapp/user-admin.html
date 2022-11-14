@@ -673,11 +673,19 @@
                 }).then(function (resp) {
                     _this.tableData = resp.data.rows;
                     _this.totalCount = resp.data.totalCount;
-                    _this.username = resp.data.username;
                 })
             },
             loginUser(){
-                document.cookie
+                // let str = document.cookie.substr(7);
+                //
+                // console.log(str);
+                let _this = this;
+                axios({
+                    method: "post",
+                    url: "http://localhost:8080/admin/getCookie",
+                }).then(function (resp) {
+                    _this.user = resp.data;
+                })
             },
             change1() {
                 this.count = 1

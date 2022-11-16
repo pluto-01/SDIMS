@@ -13,6 +13,7 @@
     <link rel="stylesheet" type="text/css" href="css/user-admin.css">
     <!--element样式-->
     <link rel="stylesheet" href="element-ui/lib/theme-chalk/index.css">
+    <link rel="icon" href="images/favicon.ico">
 
 </head>
 
@@ -42,20 +43,30 @@
 
                     <el-menu-item index="2" @click="change2()">
                         <i class="el-icon-menu"></i>
-                        <span slot="title">宿舍楼电话查询</span>
+                        <span slot="title">宿舍楼电话查询&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</span>
                     </el-menu-item>
 
                     <el-menu-item index="3" @click="change3()">
                         <i class="el-icon-menu"></i>
-                        <span slot="title">出入登记</span>
+                        <span slot="title">访客登记</span>
                     </el-menu-item>
+                    <el-submenu index="4">
+                        <template slot="title">
+                            <i class="el-icon-menu"></i>
+                            <span>物品登记</span>
+                        </template>
+                        <el-menu-item-group>
+                            <el-menu-item index="4-1" @click="change4()">进楼物品登记</el-menu-item>
+                            <el-menu-item index="4-2" @click="change5()">出楼物品登记</el-menu-item>
+                        </el-menu-item-group>
+                    </el-submenu>
 
-                    <el-menu-item index="4" @click="change4()">
+                    <el-menu-item index="5" @click="change6()">
                         <i class="el-icon-menu"></i>
                         <span slot="title">报修管理</span>
                     </el-menu-item>
 
-                    <el-menu-item index="5" @click="change5()">
+                    <el-menu-item index="6" @click="change7()">
                         <i class="el-icon-menu"></i>
                         <span slot="title">费用明细</span>
                     </el-menu-item>
@@ -167,8 +178,85 @@
             </div>
 
         </div>
+        <div class="showInfo" v-show="count == 3">
+                <el-form :label-position="labelPosition" label-width="80px" :model="visitorInfo" class="formSize">
+                    <el-form-item label="姓名" class="formItem">
+                        <el-input v-model="visitorInfo.visitor"></el-input>
+                    </el-form-item>
+                    <el-form-item label="性别" class="formItem">
+                        <el-input v-model="visitorInfo.gender"></el-input>
+                    </el-form-item>
+                    <el-form-item label="事由" class="formItem">
+                        <el-input v-model="visitorInfo.reason"></el-input>
+                    </el-form-item>
+                    <el-form-item label="联系电话" class="formItem">
+                        <el-input v-model="visitorInfo.tel"></el-input>
+                    </el-form-item>
+                    <el-form-item label="日期" class="formItem">
+                        <el-date-picker type="date" placeholder="选择日期" v-model="visitorInfo.date"
+                                        style="width: 100%;"></el-date-picker>
+                    </el-form-item>
+                    <el-form-item align="center" class="formItem">
+                        <el-button type="primary" @click="addVisitorInfo">提交</el-button>
+                        <el-button @click="closeDialog3()">取消</el-button>
+                    </el-form-item>
+                </el-form>
+        </div>
+        <div class="showInfo" v-show="count == 4">
+            <el-form :label-position="labelPosition" label-width="80px" :model="itemInInfo" class="formSize">
+                <el-form-item label="学生姓名" class="formItem">
+                    <el-input v-model="itemInInfo.stuName"></el-input>
+                </el-form-item>
+                <el-form-item label="物品名称" class="formItem">
+                    <el-input v-model="itemInInfo.itemName"></el-input>
+                </el-form-item>
 
-    </div>
+                <el-form-item label="日期" class="formItem">
+                    <el-date-picker type="date" placeholder="选择日期" v-model="itemInInfo.date"
+                                    style="width: 100%;"></el-date-picker>
+                </el-form-item>
+
+                <el-form-item label="备注" class="formItem">
+                <el-input v-model="itemInInfo.notes"></el-input>
+                </el-form-item>
+
+                <el-form-item align="center" class="formItem">
+                    <el-button type="primary" @click="addItemInInfo">提交</el-button>
+                    <el-button @click="reset4()">取消</el-button>
+                </el-form-item>
+            </el-form>
+        </div>
+        <div class="showInfo" v-show="count == 5">
+            <el-form :label-position="labelPosition" label-width="80px" :model="itemOutInfo" class="formSize">
+                <el-form-item label="学生姓名" class="formItem">
+                    <el-input v-model="itemOutInfo.stuName"></el-input>
+                </el-form-item>
+                <el-form-item label="物品名称" class="formItem">
+                    <el-input v-model="itemOutInfo.itemName"></el-input>
+                </el-form-item>
+
+                <el-form-item label="日期" class="formItem">
+                    <el-date-picker type="date" placeholder="选择日期" v-model="itemOutInfo.date"
+                                    style="width: 100%;"></el-date-picker>
+                </el-form-item>
+
+                <el-form-item label="备注" class="formItem">
+                    <el-input v-model="itemOutInfo.notes"></el-input>
+                </el-form-item>
+
+                <el-form-item align="center" class="formItem">
+                    <el-button type="primary" @click="addItemOutInfo">提交</el-button>
+                    <el-button @click="reset5()">取消</el-button>
+                </el-form-item>
+            </el-form>
+        </div>
+        <div class="showInfo" v-show="count == 6">
+
+        </div>
+        <div class="showInfo" v-show="count == 7">
+
+        </div>
+</div>
 </div>
 <script>
     new Vue({
@@ -220,15 +308,74 @@
             // 表格数据
             tableData2: [{}],
             multipleSelection2: [],
-        },
+            /**
+             *
+             *
+             *
+             *
+             *导航第3栏的数据
+             *
+             *
+             *
+             * */
+            dialogVisible3: false,
+            tableData3: [{
+                visitor: "",
+                gender: "",
+                reason: "",
+                tel: "",
+                date: "",
+            }],
+            visitorInfo: {
+                visitor: "",
+                gender: "",
+                reason: "",
+                tel: "",
+                date: "",
+            },
+            /**
+             *
+             *
+             *
+             *
+             *导航第4栏的数据
+             *
+             *
+             *
+             * */
+            itemInInfo: {
+                stuName: "",
+                itemName: "",
+                date: "",
+                notes:"",
+            },
+            /**
+             *
+             *
+             *
+             *
+             *导航第5栏的数据
+             *
+             *
+             *
+             * */
 
+            itemOutInfo: {
+                stuName: "",
+                itemName: "",
+                date: "",
+                notes:"",
+            },
+        },
         // 页面加载完成后，发送异步请求，获取数据
         mounted() {
             this.loginUser();
             this.selectAll();
             this.selectAll2();
 
+
         },
+
         methods: {
 
             //查询分页数据
@@ -265,6 +412,12 @@
             },
             change5() {
                 this.count = 5
+            },
+            change6() {
+                this.count = 6
+            },
+            change7() {
+                this.count = 7
             },
 
             //搜索方法
@@ -323,9 +476,103 @@
                     _this.tableData2 = resp.data;
                 })
             },
+            /**
+             *
+             *
+             *
+             *
+             *导航第3栏的方法
+             *
+             *
+             *
+             * */
+            addVisitorInfo() {
+                let that = this;
+                axios({
+                    method: "post",
+                    url: "http://localhost:8080/admin/addVisitor",
+                    data: that.visitorInfo
+                }).then(function (resp) {
+                    if (resp.data == "success") {
+                        //关闭窗口
+                        that.$message({
+                            message: '恭喜你，添加成功',
+                            type: 'success'
+                        });
+                        that.visitorInfo = [];
+                    }
+                })
+            },
+            /**
+             *
+             *
+             *
+             *
+             *导航第4栏的方法
+             *
+             *
+             *
+             * */
+            addItemInInfo() {
+                let that = this;
+                axios({
+                    method: "post",
+                    url: "http://localhost:8080/admin/addItemIn",
+                    data: that.itemInInfo
+                }).then(function (resp) {
+                    if (resp.data == "success") {
+                        //关闭窗口
+                        that.$message({
+                            message: '恭喜你，添加成功',
+                            type: 'success'
+                        });
+                        that.itemInInfo = [];
+                    }
+                })
+            },
+            reset4(){
+                this.itemInInfo = [];
+            },
+            /**
+             *
+             *
+             *
+             *
+             *导航第5栏的方法
+             *
+             *
+             *
+             * */
+            addItemOutInfo() {
+                let that = this;
+                axios({
+                    method: "post",
+                    url: "http://localhost:8080/admin/addItemOut",
+                    data: that.itemOutInfo
+                }).then(function (resp) {
+                    if (resp.data == "success") {
+                        //关闭窗口
+                        that.$message({
+                            message: '恭喜你，添加成功',
+                            type: 'success'
+                        });
+                        that.itemOutInfo = [];
+                    }
+                })
+            },
+            reset5(){
+                this.itemOutInfo = [];
+            },
         }
     });
 </script>
+
+<style>
+    .formSize{
+        width: 500px;
+        margin: 50px 0 0 300px;
+    }
+</style>
 </body>
 
 </html>

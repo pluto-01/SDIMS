@@ -1,6 +1,7 @@
 package com.zed.entity;
 
 import com.alibaba.fastjson.annotation.JSONField;
+import com.fasterxml.jackson.annotation.JsonFormat;
 
 import java.util.Date;
 

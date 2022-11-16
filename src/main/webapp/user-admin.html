@@ -13,6 +13,7 @@
     <link rel="stylesheet" type="text/css" href="css/user-admin.css">
     <!--element样式-->
     <link rel="stylesheet" href="element-ui/lib/theme-chalk/index.css">
+    <link rel="icon" href="images/favicon.ico">
 
 </head>
 
@@ -477,15 +478,9 @@
             <div class="searchResults">
                 <template>
                     <el-table
-                            ref="multipleTable"
                             :data="tableData3"
                             tooltip-effect="dark"
-                            style="width: 100%"
-                            @selection-change="handleSelectionChange">
-                        <el-table-column
-                                type="selection"
-                                align="center">
-                        </el-table-column>
+                            style="width: 100%">
                         <el-table-column
                                 type="index"
                                 width="50">
@@ -570,10 +565,6 @@
                             style="width: 100%"
                             @selection-change="handleSelectionChange">
                         <el-table-column
-                                type="selection"
-                                align="center">
-                        </el-table-column>
-                        <el-table-column
                                 type="index"
                                 width="50">
                         </el-table-column>
@@ -651,10 +642,6 @@
                             :data="tableData5"
                             style="width: 100%"
                             @selection-change="handleSelectionChange">
-                        <el-table-column
-                                type="selection"
-                                align="center">
-                        </el-table-column>
                         <el-table-column
                                 type="index"
                                 width="50">

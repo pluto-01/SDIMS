@@ -180,5 +180,20 @@ public class StuInfoServiceImpl implements StuInfoService {
         return deptTel;
     }
 
+    @Override
+    public List<StuInfo> selectDeptInfo(String name) {
+        //获取SqlSession对象
+        SqlSession sqlSession = factory.openSession();
+
+        //获取UserMapper对象
+        StuInfoMapper mapper = sqlSession.getMapper(StuInfoMapper.class);
+
+        List<StuInfo> deptInfo = mapper.selectDeptInfo(name);
+
+        sqlSession.close();
+
+        return deptInfo;
+    }
+
 
 }

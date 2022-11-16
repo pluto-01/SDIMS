@@ -1,11 +1,14 @@
 package com.zed.web.adminServlet;
 
 import com.alibaba.fastjson.JSON;
+import com.zed.entity.Item;
 import com.zed.entity.Page;
 import com.zed.entity.StuInfo;
 import com.zed.entity.Visitor;
+import com.zed.service.ItemService;
 import com.zed.service.StuInfoService;
 import com.zed.service.VisitorService;
+import com.zed.service.impl.ItemServiceImpl;
 import com.zed.service.impl.StuInfoServiceImpl;
 import com.zed.service.impl.VisitorServiceImpl;
 
@@ -23,6 +26,7 @@ import java.util.List;
 public class AdminServlet extends BaseServlet{
     private StuInfoService stuInfoService = new StuInfoServiceImpl();
     private VisitorService visitorService = new VisitorServiceImpl();
+    private ItemService itemService = new ItemServiceImpl();
     public void selectStu(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
         //调用UserService查询
 
@@ -177,6 +181,62 @@ public class AdminServlet extends BaseServlet{
         response.setContentType("text/json;charset=utf-8");
         response.getWriter().write(jsonString);
     }
+    public void selectItemIn(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
+        List<Item> items = itemService.selectItemIn();
+
+        //将数据转为JSON
+        String jsonString = JSON.toJSONString(items);
+
+        //写数据
+        //防止中文乱码
+        response.setContentType("text/json;charset=utf-8");
+        response.getWriter().write(jsonString);
+    }
+    public void addItemIn(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        request.setCharacterEncoding("UTF-8");
+
+        //接收以JSON格式传来的数据
+        BufferedReader br = request.getReader();
+        String params = br.readLine();//JSON字符串
+
+        //将JSON字符串转为StuInfo对象
+        Item item = JSON.parseObject(params, Item.class);
+
+        //调用方法
+        itemService.addItemIn(item);
+
+        //添加成功则提示
+        response.getWriter().write("success");
+    }
+    public void selectItemOut(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
+        List<Item> items = itemService.selectItemOut();
+
+        //将数据转为JSON
+        String jsonString = JSON.toJSONString(items);
+
+        //写数据
+        //防止中文乱码
+        response.setContentType("text/json;charset=utf-8");
+        response.getWriter().write(jsonString);
+    }
+    public void addItemOut(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        request.setCharacterEncoding("UTF-8");
+
+        //接收以JSON格式传来的数据
+        BufferedReader br = request.getReader();
+        String params = br.readLine();//JSON字符串
+
+        //将JSON字符串转为StuInfo对象
+        Item item = JSON.parseObject(params, Item.class);
+
+        //调用方法
+        itemService.addItemOut(item);
+
+        //添加成功则提示
+        response.getWriter().write("success");
+    }
+
+
 
 }
 

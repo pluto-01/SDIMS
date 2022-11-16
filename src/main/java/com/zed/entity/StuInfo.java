@@ -8,7 +8,15 @@ public class StuInfo {
     private String major;
     private String gender;
     private String tel;
+    private String deptTel;
 
+    public String getDeptTel() {
+        return deptTel;
+    }
+
+    public void setDeptTel(String deptTel) {
+        this.deptTel = deptTel;
+    }
 
     public int getId() {
         return id;
@@ -76,6 +84,7 @@ public class StuInfo {
                 ", major='" + major + '\'' +
                 ", gender='" + gender + '\'' +
                 ", tel='" + tel + '\'' +
+                ", deptTel='" + deptTel + '\'' +
                 '}';
     }
 }

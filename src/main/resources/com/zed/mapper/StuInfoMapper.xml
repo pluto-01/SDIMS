@@ -59,4 +59,10 @@
         select * from t_department
         where departmentId = #{departmentId}
     </select>
+    <select id="selectDeptInfo" resultType="com.zed.entity.StuInfo">
+        select t_stuinfo.departmentId,t_stuinfo.name,t_department.deptTel,t_stuinfo.tel from t_department,t_stuinfo where
+        t_department.departmentId = (select departmentId deptid from t_stuinfo where name = #{name})
+        and
+        t_stuinfo.departmentId = (select departmentId deptid from t_stuinfo where name = #{name}) ;
+    </select>
 </mapper>

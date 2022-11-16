@@ -86,6 +86,13 @@ public interface StuInfoMapper {
      * @return
      */
     List<StuInfo> selectTelByCondition(StuInfo stuInfo);
+
+    /**
+     * 查询学生所在宿舍信息
+     * @param name
+     * @return
+     */
+    List<StuInfo> selectDeptInfo(String name);
 }
 
 

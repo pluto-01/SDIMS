@@ -16,7 +16,7 @@
 
 </head>
 
-<body id="body">
+<body>
 <!-- 顶部 -->
 <div id="container">
     <div class="banner">
@@ -27,8 +27,8 @@
     <!-- 主体 -->
     <div class="container">
 
-        <el-row class="tac" style="margin:30px 0 0 20px">
-            <el-col :span="50">
+        <el-row class="tac" style="margin:30px 0 0 5px">
+            <el-col :span="120">
                 <el-menu
                         default-active="1"
                         class="el-menu-vertical-demo">
@@ -40,7 +40,7 @@
 
                     <el-menu-item index="2" @click="change2()">
                         <i class="el-icon-menu"></i>
-                        <span slot="title">财产管理</span>
+                        <span slot="title">财产管理&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</span>
                     </el-menu-item>
 
                     <el-menu-item index="3" @click="change3()">
@@ -48,17 +48,29 @@
                         <span slot="title">访客登记</span>
                     </el-menu-item>
 
-                    <el-menu-item index="4" @click="change4()">
-                        <i class="el-icon-menu"></i>
-                        <span slot="title">物品审核</span>
-                    </el-menu-item>
+<!--                    <el-menu-item index="4" @click="change4()">-->
+<!--                        <i class="el-icon-menu"></i>-->
+<!--                        <span slot="title">物品审核</span>-->
+<!--                    </el-menu-item>-->
+                    <el-submenu index="4">
+                        <template slot="title">
+                            <i class="el-icon-menu"></i>
+                            <span>物品登记</span>
+                        </template>
+                        <el-menu-item-group>
+                            <el-menu-item index="4-1" @click="change4()">进楼物品登记</el-menu-item>
+                            <el-menu-item index="4-2" @click="change5()">出楼物品登记</el-menu-item>
+                        </el-menu-item-group>
+                    </el-submenu>
 
-                    <el-menu-item index="5" @click="change5()">
+                    </el-submenu>
+
+                    <el-menu-item index="5" @click="change6()">
                         <i class="el-icon-menu"></i>
                         <span slot="title">报修管理</span>
                     </el-menu-item>
 
-                    <el-menu-item index="6" @click="change6()">
+                    <el-menu-item index="6" @click="change7()">
                         <i class="el-icon-menu"></i>
                         <span slot="title">费用明细</span>
                     </el-menu-item>
@@ -513,12 +525,173 @@
             </div>
         </div>
         <div class="showInfo" v-show="count == 4">
-            444444444444444
+            <el-row>
+                <el-button type="primary" plain @click="onShow4()">新增信息</el-button>
+            </el-row>
+            <!--添加对话框表单-->
+            <el-dialog
+                    title="进楼物品登记信息"
+                    :visible.sync="dialogVisible4"
+                    width="30%">
+
+                <!--对话框内容-->
+                <el-form ref="form" :model="itemInInfo" label-width="80px">
+
+                    <el-form-item label="学生姓名">
+                        <el-input v-model="itemInInfo.stuName"></el-input>
+                    </el-form-item>
+
+                    <el-form-item label="物品名称">
+                        <el-input v-model="itemInInfo.itemName"></el-input>
+                    </el-form-item>
+
+                    <el-form-item label="日期">
+                        <el-date-picker type="date" placeholder="选择日期" v-model="itemInInfo.date"
+                                        style="width: 100%;"></el-date-picker>
+                    </el-form-item>
+
+                    <el-form-item label="备注">
+                        <el-input v-model="itemInInfo.notes"></el-input>
+                    </el-form-item>
+
+                    <el-form-item align="center">
+                        <el-button type="primary" @click="addItemInInfo">提交</el-button>
+                        <el-button @click="closeDialog4()">取消</el-button>
+                    </el-form-item>
+                </el-form>
+            </el-dialog>
+
+
+            <div class="searchResults">
+                <template>
+                    <el-table
+                            ref="multipleTable"
+                            :data="tableData4"
+                            style="width: 100%"
+                            @selection-change="handleSelectionChange">
+                        <el-table-column
+                                type="selection"
+                                align="center">
+                        </el-table-column>
+                        <el-table-column
+                                type="index"
+                                width="50">
+                        </el-table-column>
+                        <el-table-column
+                                prop="stuName"
+                                label="学生姓名"
+                                align="center">
+                        </el-table-column>
+
+
+                        <el-table-column
+                                prop="itemName"
+                                label="物品名称"
+                                align="center">
+                        </el-table-column>
+
+                        <el-table-column
+                                prop="date"
+                                label="日期"
+                                align="center">
+                        </el-table-column>
+
+                        <el-table-column
+                                prop="notes"
+                                label="备注"
+                                align="center">
+                        </el-table-column>
+
+                    </el-table>
+                </template>
+            </div>
         </div>
         <div class="showInfo" v-show="count == 5">
-            5555555555555
+            <el-row>
+                <el-button type="primary" plain @click="onShow5()">新增信息</el-button>
+            </el-row>
+            <!--添加对话框表单-->
+            <el-dialog
+                    title="出楼物品登记信息"
+                    :visible.sync="dialogVisible5"
+                    width="30%">
+
+                <!--对话框内容-->
+                <el-form ref="form" :model="itemOutInfo" label-width="80px">
+
+                    <el-form-item label="学生姓名">
+                        <el-input v-model="itemOutInfo.stuName"></el-input>
+                    </el-form-item>
+
+                    <el-form-item label="物品名称">
+                        <el-input v-model="itemOutInfo.itemName"></el-input>
+                    </el-form-item>
+
+                    <el-form-item label="日期">
+                        <el-date-picker type="date" placeholder="选择日期" v-model="itemOutInfo.date"
+                                        style="width: 100%;"></el-date-picker>
+                    </el-form-item>
+
+                    <el-form-item label="备注">
+                        <el-input v-model="itemOutInfo.notes"></el-input>
+                    </el-form-item>
+
+                    <el-form-item align="center">
+                        <el-button type="primary" @click="addItemOutInfo">提交</el-button>
+                        <el-button @click="closeDialog5()">取消</el-button>
+                    </el-form-item>
+                </el-form>
+            </el-dialog>
+
+
+            <div class="searchResults">
+                <template>
+                    <el-table
+                            ref="multipleTable"
+                            :data="tableData5"
+                            style="width: 100%"
+                            @selection-change="handleSelectionChange">
+                        <el-table-column
+                                type="selection"
+                                align="center">
+                        </el-table-column>
+                        <el-table-column
+                                type="index"
+                                width="50">
+                        </el-table-column>
+                        <el-table-column
+                                prop="stuName"
+                                label="学生姓名"
+                                align="center">
+                        </el-table-column>
+
+
+                        <el-table-column
+                                prop="itemName"
+                                label="物品名称"
+                                align="center">
+                        </el-table-column>
+
+                        <el-table-column
+                                prop="date"
+                                label="日期"
+                                align="center">
+                        </el-table-column>
+
+                        <el-table-column
+                                prop="notes"
+                                label="备注"
+                                align="center">
+                        </el-table-column>
+
+                    </el-table>
+                </template>
+            </div>
         </div>
         <div class="showInfo" v-show="count == 6">
+            5555555555555
+        </div>
+        <div class="showInfo" v-show="count == 7">
             66666666666666
         </div>
     </div>
@@ -654,13 +827,62 @@
                 reason: "",
                 tel: "",
                 date: "",
-            }
+            },
+            /**
+             *
+             *
+             *
+             *
+             *导航第4栏的数据
+             *
+             *
+             *
+             * */
+            dialogVisible4: false,
+            tableData4: [{
+                stuName: "",
+                itemName: "",
+                date: "",
+                notes:"",
+            }],
+            itemInInfo: {
+                stuName: "",
+                itemName: "",
+                date: "",
+                notes:"",
+            },
+            /**
+             *
+             *
+             *
+             *
+             *导航第5栏的数据
+             *
+             *
+             *
+             * */
+            dialogVisible5: false,
+            tableData5: [{
+                stuName: "",
+                itemName: "",
+                date: "",
+                notes:"",
+            }],
+            itemOutInfo: {
+                stuName: "",
+                itemName: "",
+                date: "",
+                notes:"",
+            },
         },
+
         // 页面加载完成后，发送异步请求，获取数据
         mounted() {
+            this.loginUser();
             this.selectAll();
             this.selectAll3();
-            this.loginUser();
+            this.selectAll4();
+            this.selectAll5();
         },
         methods: {
             //查询分页数据
@@ -704,6 +926,9 @@
             },
             change6() {
                 this.count = 6
+            },
+            change7() {
+                this.count = 7
             },
             //搜索方法
             onSubmit() {
@@ -883,7 +1108,95 @@
                 })
             },
             closeDialog3() {
-                this.dialogVisible3 = true;
+                this.dialogVisible3 = false;
+            },
+            /**
+             *
+             *
+             *
+             *
+             *导航第4栏的方法
+             *
+             *
+             *
+             * */
+            onShow4() {
+                this.dialogVisible4 = true;
+            },
+            selectAll4() {
+                let _this = this;
+                axios({
+                    method: "get",
+                    url: "http://localhost:8080/admin/selectItemIn"
+                }).then(function (resp) {
+                    _this.tableData4 = resp.data;
+                })
+            },
+            addItemInInfo() {
+                let that = this;
+                axios({
+                    method: "post",
+                    url: "http://localhost:8080/admin/addItemIn",
+                    data: that.itemInInfo
+                }).then(function (resp) {
+                    if (resp.data == "success") {
+                        //关闭窗口
+                        that.dialogVisible4 = false;
+                        that.selectAll4();
+                        that.$message({
+                            message: '恭喜你，添加成功',
+                            type: 'success'
+                        });
+                        that.itemInInfo = [];
+                    }
+                })
+            },
+            closeDialog4() {
+                this.dialogVisible4 = false;
+            },
+            /**
+             *
+             *
+             *
+             *
+             *导航第5栏的方法
+             *
+             *
+             *
+             * */
+            onShow5() {
+                this.dialogVisible5 = true;
+            },
+            selectAll5() {
+                let _this = this;
+                axios({
+                    method: "get",
+                    url: "http://localhost:8080/admin/selectItemOut"
+                }).then(function (resp) {
+                    _this.tableData5 = resp.data;
+                })
+            },
+            addItemOutInfo() {
+                let that = this;
+                axios({
+                    method: "post",
+                    url: "http://localhost:8080/admin/addItemOut",
+                    data: that.itemOutInfo
+                }).then(function (resp) {
+                    if (resp.data == "success") {
+                        //关闭窗口
+                        that.dialogVisible5 = false;
+                        that.selectAll5();
+                        that.$message({
+                            message: '恭喜你，添加成功',
+                            type: 'success'
+                        });
+                        that.itemOutInfo = [];
+                    }
+                })
+            },
+            closeDialog5() {
+                this.dialogVisible5 = false;
             },
         }
     });

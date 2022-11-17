@@ -1,16 +1,9 @@
 package com.zed.web.adminServlet;
 
 import com.alibaba.fastjson.JSON;
-import com.zed.entity.Item;
-import com.zed.entity.Page;
-import com.zed.entity.StuInfo;
-import com.zed.entity.Visitor;
-import com.zed.service.ItemService;
-import com.zed.service.StuInfoService;
-import com.zed.service.VisitorService;
-import com.zed.service.impl.ItemServiceImpl;
-import com.zed.service.impl.StuInfoServiceImpl;
-import com.zed.service.impl.VisitorServiceImpl;
+import com.zed.entity.*;
+import com.zed.service.*;
+import com.zed.service.impl.*;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -27,6 +20,9 @@ public class AdminServlet extends BaseServlet{
     private StuInfoService stuInfoService = new StuInfoServiceImpl();
     private VisitorService visitorService = new VisitorServiceImpl();
     private ItemService itemService = new ItemServiceImpl();
+    private PropertyService propertyService = new PropertyServiceImpl();
+    private RepairService repairService = new RepairServiceImpl();
+
     public void selectStu(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
         //调用UserService查询
 
@@ -235,8 +231,60 @@ public class AdminServlet extends BaseServlet{
         //添加成功则提示
         response.getWriter().write("success");
     }
+    public void selectProperty(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
+        List<Property> props = propertyService.selectProperty();
 
+        //将数据转为JSON
+        String jsonString = JSON.toJSONString(props);
 
+        //写数据
+        //防止中文乱码
+        response.setContentType("text/json;charset=utf-8");
+        response.getWriter().write(jsonString);
+    }
+    public void addProperty(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        request.setCharacterEncoding("UTF-8");
+
+        //接收以JSON格式传来的数据
+        BufferedReader br = request.getReader();
+        String params = br.readLine();//JSON字符串
+
+        //将JSON字符串转为StuInfo对象
+        Property property = JSON.parseObject(params, Property.class);
+
+        //调用方法
+        propertyService.addProperty(property);
+
+        //添加成功则提示
+        response.getWriter().write("success");
+    }
+    public void selectRepair(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
+        List<Repair> repairs = repairService.selectRepair();
+
+        //将数据转为JSON
+        String jsonString = JSON.toJSONString(repairs);
+
+        //写数据
+        //防止中文乱码
+        response.setContentType("text/json;charset=utf-8");
+        response.getWriter().write(jsonString);
+    }
+    public void editRepairInfo(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
+        request.setCharacterEncoding("UTF-8");
+
+        //接收以JSON格式传来的数据
+        BufferedReader br = request.getReader();
+        String params = br.readLine();//JSON字符串
+
+        //将JSON字符串转为StuInfo对象
+        Repair repair = JSON.parseObject(params, Repair.class);
+
+        //调用方法
+        repairService.editRepairInfo(repair);
+
+        //添加成功则提示
+        response.getWriter().write("success");
+    }
 
 }
 

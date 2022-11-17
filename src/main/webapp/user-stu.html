@@ -13,6 +13,10 @@
     <link rel="stylesheet" type="text/css" href="css/user-admin.css">
     <!--element样式-->
     <link rel="stylesheet" href="element-ui/lib/theme-chalk/index.css">
+<!--    &lt;!&ndash; 引入样式 &ndash;&gt;-->
+<!--    <link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">-->
+<!--    &lt;!&ndash; 引入组件库 &ndash;&gt;-->
+<!--    <script src="https://unpkg.com/element-ui/lib/index.js"></script>-->
     <link rel="icon" href="images/favicon.ico">
 
 </head>
@@ -251,7 +255,29 @@
             </el-form>
         </div>
         <div class="showInfo" v-show="count == 6">
+            <el-form :label-position="labelPosition" label-width="80px" :model="repairInfo" class="formSize">
+                <el-form-item label="宿舍号" class="formItem">
+                    <el-input v-model="repairInfo.departmentId"></el-input>
+                </el-form-item>
+                <el-form-item label="财产号" class="formItem">
+                    <el-input v-model="repairInfo.propertyNum"></el-input>
+                </el-form-item>
 
+                <el-form-item label="报修日期" class="formItem">
+                    <el-date-picker type="date" placeholder="选择日期" v-model="repairInfo.startDate"
+                                    style="width: 100%;"></el-date-picker>
+                </el-form-item>
+
+                <el-form-item label="原因" class="formItem">
+                    <el-input v-model="repairInfo.reason"></el-input>
+                </el-form-item>
+
+                <el-form-item align="center" class="formItem">
+                    <el-button type="primary" @click="addRepairInfo">提交</el-button>
+                    <el-button @click="reset6()">取消</el-button>
+                </el-form-item>
+            </el-form>
+        </div>
         </div>
         <div class="showInfo" v-show="count == 7">
 
@@ -366,14 +392,29 @@
                 date: "",
                 notes:"",
             },
+            /**
+             *
+             *
+             *
+             *
+             *导航第6栏的数据
+             *
+             *
+             *
+             * */
+            repairInfo:{
+                departmentId:"",
+                propertyNum:"",
+                startDate:"",
+                reason:"",
+            },
+
         },
         // 页面加载完成后，发送异步请求，获取数据
         mounted() {
             this.loginUser();
             this.selectAll();
             this.selectAll2();
-
-
         },
 
         methods: {
@@ -562,6 +603,36 @@
             },
             reset5(){
                 this.itemOutInfo = [];
+            },
+            /**
+             *
+             *
+             *
+             *
+             *导航第6栏的方法
+             *
+             *
+             *
+             * */
+            addRepairInfo() {
+                let that = this;
+                axios({
+                    method: "post",
+                    url: "http://localhost:8080/stu/addRepairInfo",
+                    data: that.repairInfo
+                }).then(function (resp) {
+                    if (resp.data == "success") {
+                        //关闭窗口
+                        that.$message({
+                            message: '恭喜你，添加成功',
+                            type: 'success'
+                        });
+                        that.repairInfo = [];
+                    }
+                })
+            },
+            reset6(){
+                this.repairInfo = [];
             },
         }
     });

@@ -2,8 +2,12 @@ package com.zed.web.adminServlet;
 
 
 import com.alibaba.fastjson.JSON;
+import com.zed.entity.Item;
+import com.zed.entity.Repair;
 import com.zed.entity.StuInfo;
+import com.zed.service.RepairService;
 import com.zed.service.StuInfoService;
+import com.zed.service.impl.RepairServiceImpl;
 import com.zed.service.impl.StuInfoServiceImpl;
 
 import javax.servlet.ServletException;
@@ -20,6 +24,9 @@ import java.util.List;
 @WebServlet("/stu/*")
 public class StudentServlet extends BaseServlet{
     private StuInfoService stuInfoService = new StuInfoServiceImpl();
+    private RepairService repairService = new RepairServiceImpl();
+
+
     public void getUserInfo(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         request.setCharacterEncoding("UTF-8");
 
@@ -108,4 +115,22 @@ public class StudentServlet extends BaseServlet{
         response.setContentType("text/json;charset=utf-8");
         response.getWriter().write(jsonString);
     }
+    public void addRepairInfo(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        request.setCharacterEncoding("UTF-8");
+
+        //接收以JSON格式传来的数据
+        BufferedReader br = request.getReader();
+        String params = br.readLine();//JSON字符串
+
+        //将JSON字符串转为StuInfo对象
+        Repair repair = JSON.parseObject(params, Repair.class);
+
+        //调用方法
+        repairService.addRepairInfo(repair);
+
+        //添加成功则提示
+        response.getWriter().write("success");
+    }
+
+
 }

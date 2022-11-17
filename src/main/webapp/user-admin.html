@@ -8,11 +8,16 @@
     <title>学生宿舍信息管理系统</title>
     <script src="js/vue.js"></script>
     <script src="js/axios.js"></script>
-    <script src="element-ui/lib/index.js"></script>
+
 
     <link rel="stylesheet" type="text/css" href="css/user-admin.css">
-    <!--element样式-->
+<!--    element样式-->
+    <script src="element-ui/lib/index.js"></script>
     <link rel="stylesheet" href="element-ui/lib/theme-chalk/index.css">
+<!--     引入样式 -->
+<!--    <link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">-->
+<!--    &lt;!&ndash; 引入组件库 &ndash;&gt;-->
+<!--    <script src="https://unpkg.com/element-ui/lib/index.js"></script>-->
     <link rel="icon" href="images/favicon.ico">
 
 </head>
@@ -277,160 +282,57 @@
         <div class="showInfo" v-show="count == 2">
             <el-row>
                 <el-button type="primary" plain @click="onShow2()">新增信息</el-button>
-                <el-button type="danger" plain>批量删除</el-button>
             </el-row>
             <!--添加对话框表单-->
             <el-dialog
-                    title="新增信息"
+                    title="新增财产信息"
                     :visible.sync="dialogVisible2"
                     width="30%">
 
                 <!--对话框内容-->
                 <el-form ref="form" :model="propertyInfo" label-width="80px">
-                    <el-form-item label="学号">
-                        <el-input v-model="propertyInfo.sno"></el-input>
+
+                    <el-form-item label="财产号">
+                        <el-input v-model="propertyInfo.propertyNum"></el-input>
                     </el-form-item>
 
-                    <el-form-item label="宿舍号">
-                        <el-input v-model="propertyInfo.departmentId"></el-input>
+                    <el-form-item label="财产名称">
+                        <el-input v-model="propertyInfo.propertyName"></el-input>
                     </el-form-item>
 
-                    <el-form-item label="姓名">
-                        <el-input v-model="propertyInfo.name"></el-input>
-                    </el-form-item>
-
-                    <el-form-item label="专业">
-                        <el-input v-model="propertyInfo.major"></el-input>
-                    </el-form-item>
-
-                    <el-form-item label="性别">
-                        <el-input v-model="propertyInfo.gender"></el-input>
-                    </el-form-item>
-
-                    <el-form-item label="联系电话">
-                        <el-input v-model="propertyInfo.tel"></el-input>
+                    <el-form-item label="财产数量">
+                        <el-input v-model="propertyInfo.propertyCount"></el-input>
                     </el-form-item>
 
                     <el-form-item align="center">
-                        <el-button type="primary" @click="addStuInfo">提交</el-button>
-                        <el-button>取消</el-button>
+                        <el-button type="primary" @click="addPropertyInfo">提交</el-button>
+                        <el-button @click="closeDialog2()">取消</el-button>
                     </el-form-item>
 
                 </el-form>
             </el-dialog>
-
-
-            <div class="searchResults">
-                <template>
-                    <el-table
-                            ref="multipleTable"
-                            :data="tableData2"
-                            tooltip-effect="dark"
-                            style="width: 100%"
-                            @selection-change="handleSelectionChange">
-                        <el-table-column
-                                type="selection"
-                                align="center">
-                        </el-table-column>
-                        <el-table-column
-                                type="index"
-                                width="50">
-                        </el-table-column>
-                        <el-table-column
-                                prop="departmentId"
-                                label="宿舍号"
-                                align="center">
-                        </el-table-column>
-                        <el-table-column
-                                prop="name"
-                                label="姓名"
-                                align="center">
-                        </el-table-column>
-                        <el-table-column
-                                prop="major"
-                                label="专业"
-                                align="center">
-                        </el-table-column>
-                        <el-table-column
-                                prop="gender"
-                                label="性别"
-                                align="center">
-                        </el-table-column>
-                        <el-table-column
-                                prop="tel"
-                                label="电话号码"
-                                align="center">
-                        </el-table-column>
-                        <el-table-column
-                                label="操作"
-                                align="center"
-                                show-overflow-tooltip>
-                            <template slot-scope="scope">
-                                <el-row>
-                                    <el-button type="primary" @click="editInfo(scope.$index,scope.row);onShow2()">编辑
-                                    </el-button>
-
-                                    <el-button type="danger" @click="isVisible(scope.row);onShowDelete()">删除</el-button>
-
-                                </el-row>
-                            </template>
-                        </el-table-column>
-                    </el-table>
-
-                    <!--编辑学生信息对话框-->
-                    <el-dialog
-                            title="编辑学生信息"
-                            :visible.sync="dialogFormVisible2"
-                            width="30%">
-
-                        <!--对话框内容-->
-                        <el-form ref="form" :model="editStu" label-width="80px">
-                            <el-form-item label="学号">
-                                <el-input v-model="editStu.sno"></el-input>
-                            </el-form-item>
-
-                            <el-form-item label="宿舍号">
-                                <el-input v-model="editStu.departmentId"></el-input>
-                            </el-form-item>
-
-                            <el-form-item label="姓名">
-                                <el-input v-model="editStu.name"></el-input>
-                            </el-form-item>
-
-                            <el-form-item label="专业">
-                                <el-input v-model="editStu.major"></el-input>
-                            </el-form-item>
-
-                            <el-form-item label="性别">
-                                <el-input v-model="editStu.gender"></el-input>
-                            </el-form-item>
-
-                            <el-form-item label="联系电话">
-                                <el-input v-model="editStu.tel"></el-input>
-                            </el-form-item>
-
-                            <el-form-item align="center">
-                                <el-button type="primary" @click="editStuInfo">提交</el-button>
-                                <el-button>取消</el-button>
-                            </el-form-item>
-
-                        </el-form>
-                    </el-dialog>
-
-                    <!--删除学生信息对话框-->
-                    <el-dialog
-                            title="提示"
-                            :visible.sync="centerDialogVisible2"
-                            width="30%"
-                            center>
-                        <span>此操作将永久删除该行信息, 是否继续?</span>
-                        <span slot="footer" class="dialog-footer">
-                                <el-button @click="centerDialogVisible2 = false">取 消</el-button>
-                                <el-button type="primary" @click="deleteStuInfo">确 定</el-button>
-                            </span>
-                    </el-dialog>
-                </template>
-            </div>
+            <template>
+                <el-table
+                        :data="tableData2"
+                        style="width: 100%">
+                    <el-table-column
+                            prop="propertyNum"
+                            label="财产号"
+                            align="center">
+                    </el-table-column>
+                    <el-table-column
+                            prop="propertyName"
+                            label="财产名称"
+                            align="center">
+                    </el-table-column>
+                    <el-table-column
+                            prop="propertyCount"
+                            label="财产数量"
+                            align="center">
+                    </el-table-column>
+                </el-table>
+            </template>
+<!--            <span style="">备注：以上物品每间宿舍种类均有数量均等</span>-->
         </div>
         <div class="showInfo" v-show="count == 3">
             <el-row>
@@ -676,7 +578,94 @@
             </div>
         </div>
         <div class="showInfo" v-show="count == 6">
-            5555555555555
+            <template>
+                <el-table
+                        ref="multipleTable"
+                        :data="tableData6"
+                        tooltip-effect="dark"
+                        style="width: 100%"
+                        @selection-change="handleSelectionChange">
+                    <el-table-column
+                            type="index"
+                            width="50">
+                    </el-table-column>
+                    <el-table-column
+                            prop="departmentId"
+                            label="宿舍号"
+                            align="center">
+                    </el-table-column>
+                    <el-table-column
+                            prop="propertyNum"
+                            label="财产号"
+                            align="center">
+                    </el-table-column>
+                    <el-table-column
+                            prop="startDate"
+                            label="报修日期"
+                            align="center">
+                    </el-table-column>
+                    <el-table-column
+                            prop="reason"
+                            label="损坏原因"
+                            align="center">
+                    </el-table-column>
+                    <el-table-column
+                            prop="finishDate"
+                            label="完成日期"
+                            align="center">
+                    </el-table-column>
+                    <el-table-column
+                            label="操作"
+                            align="center"
+                            show-overflow-tooltip>
+                        <template slot-scope="scope">
+                            <el-row>
+                                <el-button type="primary"
+                                           @click="editInfo6(scope.$index,scope.row);dialogFormVisible6=true">编辑
+                                </el-button>
+                            </el-row>
+                        </template>
+                    </el-table-column>
+                </el-table>
+
+                <!--编辑学生信息对话框-->
+                <el-dialog
+                        title="编辑报修信息"
+                        :visible.sync="dialogFormVisible6"
+                        width="30%">
+
+                    <!--对话框内容-->
+                    <el-form ref="form" :model="editRepair" label-width="80px">
+                        <el-form-item label="宿舍号">
+                            <el-input v-model="editRepair.departmentId"></el-input>
+                        </el-form-item>
+
+                        <el-form-item label="财产号">
+                            <el-input v-model="editRepair.propertyNum"></el-input>
+                        </el-form-item>
+
+                        <el-form-item label="报修日期">
+                            <el-date-picker type="date" placeholder="选择日期" v-model="editRepair.startDate"
+                                            style="width: 100%;"></el-date-picker>
+                        </el-form-item>
+
+                        <el-form-item label="损坏原因">
+                            <el-input v-model="editRepair.reason"></el-input>
+                        </el-form-item>
+
+                        <el-form-item label="完成日期">
+                            <el-date-picker type="date" placeholder="选择日期" v-model="editRepair.finishDate"
+                                            style="width: 100%;"></el-date-picker>
+                        </el-form-item>
+
+                        <el-form-item align="center">
+                            <el-button type="primary" @click="editRepairInfo">提交</el-button>
+                            <el-button>取消</el-button>
+                        </el-form-item>
+
+                    </el-form>
+                </el-dialog>
+            </template>
         </div>
         <div class="showInfo" v-show="count == 7">
             66666666666666
@@ -698,7 +687,7 @@
              *
              * */
             count: 1,
-            user: "李晨",
+            user: "",
             // 表格数据
             tableData: [{
                 sno: "",
@@ -777,19 +766,16 @@
              *
              * */
             dialogVisible2: false,
-            //控制编辑对话框的打开与隐藏
-            dialogFormVisible2: false,
-            //控制删除对话框的打开与隐藏
-            centerDialogVisible2: false,
-            tableData2: [{
-                sno: "",
-                departmentId: "",
-                name: "",
-                major: "",
-                gender: "",
-                tel: "",
+            propertyInfo: {
+                propertyNum: "",
+                propertyName: "",
+                propertyCount: "",
+            },
+            tableData2:[{
+                propertyNum:"",
+                propertyName:"",
+                propertyCount:"",
             }],
-            propertyInfo: [],
             /**
              *
              *
@@ -861,15 +847,36 @@
                 date: "",
                 notes:"",
             },
+            /**
+             *
+             *
+             *
+             *
+             *导航第6栏的数据
+             *
+             *
+             *
+             * */
+            tableData6: [{
+                departmentId: "",
+                propertyNum: "",
+                startDate: "",
+                reason:"",
+                finishDate:"",
+            }],
+            editRepair:[],
+            dialogFormVisible6:false,
         },
 
         // 页面加载完成后，发送异步请求，获取数据
         mounted() {
             this.loginUser();
             this.selectAll();
+            this.selectAll2();
             this.selectAll3();
             this.selectAll4();
             this.selectAll5();
+            this.selectAll6();
         },
         methods: {
             //查询分页数据
@@ -1050,8 +1057,36 @@
             onShow2() {
                 this.dialogVisible2 = true;
             },
-            onShowDelete() {
-                this.centerFormVisible2 = true;
+            selectAll2() {
+                let _this = this;
+                axios({
+                    method: "get",
+                    url: "http://localhost:8080/admin/selectProperty"
+                }).then(function (resp) {
+                    _this.tableData2 = resp.data;
+                })
+            },
+            addPropertyInfo() {
+                let that = this;
+                axios({
+                    method: "post",
+                    url: "http://localhost:8080/admin/addProperty",
+                    data: that.propertyInfo
+                }).then(function (resp) {
+                    if (resp.data == "success") {
+                        //关闭窗口
+                        that.dialogVisible2 = false;
+                        that.selectAll2();
+                        that.$message({
+                            message: '恭喜你，添加成功',
+                            type: 'success'
+                        });
+                        that.propertyInfo = [];
+                    }
+                })
+            },
+            closeDialog2() {
+                this.dialogVisible2 = false;
             },
             /**
              *
@@ -1184,6 +1219,50 @@
             },
             closeDialog5() {
                 this.dialogVisible5 = false;
+            },
+            /**
+             *
+             *
+             *
+             *
+             *导航第6栏的方法
+             *
+             *
+             *
+             * */
+            selectAll6() {
+                let _this = this;
+                axios({
+                    method: "get",
+                    url: "http://localhost:8080/admin/selectRepair"
+                }).then(function (resp) {
+                    _this.tableData6 = resp.data;
+                })
+            },
+            //实现编辑报修数据的数据回显
+            editInfo6(index, row) {
+
+                this.dialogFormVisible6 = true;
+                this.editRepair = row;
+            },
+            //编辑学生数据
+            editRepairInfo() {
+                let that = this;
+                axios({
+                    method: "post",
+                    url: "http://localhost:8080/admin/editRepairInfo",
+                    data: that.editRepair
+                }).then(function (resp) {
+                    if (resp.data == "success") {
+                        //关闭窗口
+                        that.dialogFormVisible6 = false;
+                        that.selectAll6();
+                        that.$message({
+                            message: '恭喜你，编辑成功',
+                            type: 'success'
+                        });
+                    }
+                })
             },
         }
     });

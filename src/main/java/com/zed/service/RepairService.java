@@ -30,4 +30,10 @@ public interface RepairService {
      * @param repair
      */
     void addRepairInfo(Repair repair);
+
+    /**
+     * 职工编辑报修状态
+     * @param repair
+     */
+    void editRepairInfoByWorker(Repair repair);
 }

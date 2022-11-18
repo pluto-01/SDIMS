@@ -31,4 +31,10 @@ public interface RepairMapper {
      */
     @Insert("insert into t_repair(departmentId, propertyNum, startdate, reason) values(#{departmentId},#{propertyNum},#{startDate},#{reason})")
     void addRepairInfo(Repair repair);
+
+    /**
+     * 职工编辑报修状态
+     * @param repair
+     */
+    void editRepairInfoByWorker(Repair repair);
 }

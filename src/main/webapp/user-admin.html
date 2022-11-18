@@ -613,6 +613,11 @@
                             align="center">
                     </el-table-column>
                     <el-table-column
+                            prop="status"
+                            label="状态"
+                            align="center">
+                    </el-table-column>
+                    <el-table-column
                             prop="finishDate"
                             label="完成日期"
                             align="center">
@@ -654,6 +659,10 @@
 
                         <el-form-item label="损坏原因">
                             <el-input v-model="editRepair.reason"></el-input>
+                        </el-form-item>
+
+                        <el-form-item label="状态">
+                            <el-input v-model="editRepair.status"></el-input>
                         </el-form-item>
 
                         <el-form-item label="完成日期">
@@ -1012,6 +1021,7 @@
                 propertyNum: "",
                 startDate: "",
                 reason: "",
+                status:"",
                 finishDate: "",
             }],
             editRepair: [],
@@ -1429,9 +1439,10 @@
                 this.editRepair = row;
             },
             closeDialogForm6(){
+                this.editRepair.date = "";
                 this.dialogFormVisible6 = false;
             },
-            //编辑学生数据
+            //编辑报修数据
             editRepairInfo() {
                 let that = this;
                 axios({
@@ -1455,7 +1466,7 @@
              *
              *
              *
-             *导航第6栏的方法
+             *导航第7栏的方法
              *
              *
              *
@@ -1517,7 +1528,6 @@
             },
             //实现编辑费用数据的数据回显
             editInfo7(index, row) {
-
                 this.dialogFormVisible7 = true;
                 this.editBill = row;
             },

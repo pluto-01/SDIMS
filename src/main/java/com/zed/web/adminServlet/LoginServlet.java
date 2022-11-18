@@ -55,24 +55,21 @@ public class LoginServlet extends HttpServlet {
                 response.addCookie(cookie);
                 request.getRequestDispatcher("/user-admin.html").forward(request, response);
             } else
-                writer.write("登录失败");
-        }
+                request.getRequestDispatcher("/user-admin.html").forward(request, response);        }
         if (value.equals("2")) {
             if (user2 != null) {
                 Cookie cookie = new Cookie("username", URLEncoder.encode(user2.getName(), "utf-8"));
                 response.addCookie(cookie);
                 request.getRequestDispatcher("/user-stu.html").forward(request, response);
             } else
-                writer.write("登录失败");
-        }
+                request.getRequestDispatcher("/user-stu.html").forward(request, response);        }
         if (value.equals("3")) {
             if (user3 != null) {
-                HttpSession session3 = request.getSession();
-                session3.setAttribute("username", user3.getUsername());
+                Cookie cookie = new Cookie("username", URLEncoder.encode(user3.getName(), "utf-8"));
+                response.addCookie(cookie);
                 request.getRequestDispatcher("/user-worker.html").forward(request, response);
             } else
-                writer.write("登录失败");
-        }
+                request.getRequestDispatcher("/user-worker.html").forward(request, response);        }
     }
 
     @Override

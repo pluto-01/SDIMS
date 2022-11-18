@@ -3,9 +3,198 @@
 <head>
     <meta charset="UTF-8">
     <title>学生宿舍信息管理系统</title>
+    <script src="js/vue.js"></script>
+    <script src="js/axios.js"></script>
+
+
+    <link rel="stylesheet" type="text/css" href="css/user-admin.css">
+    <!--    element样式-->
+    <script src="element-ui/lib/index.js"></script>
+    <link rel="stylesheet" href="element-ui/lib/theme-chalk/index.css">
+
     <link rel="icon" href="images/favicon.ico">
 </head>
 <body>
-12121212121
+<div id="container">
+    <div class="banner">
+        <span class="title">学生宿舍信息管理系统</span>
+        <span class="welcome" v-on="loginUser()">欢迎,{{user}}</span>
+        <a href="http://localhost:8080/login.html" class="logout">退出登录</a>
+    </div>
+    <!-- 主体 -->
+    <div class="container">
+        <template>
+            <el-table
+                    ref="multipleTable"
+                    :data="tableData"
+                    tooltip-effect="dark"
+                    style="width: 100%"
+                    @selection-change="handleSelectionChange">
+                <el-table-column
+                        type="index"
+                        width="50">
+                </el-table-column>
+                <el-table-column
+                        prop="departmentId"
+                        label="宿舍号"
+                        align="center">
+                </el-table-column>
+                <el-table-column
+                        prop="propertyNum"
+                        label="财产号"
+                        align="center">
+                </el-table-column>
+                <el-table-column
+                        prop="startDate"
+                        label="报修日期"
+                        align="center">
+                </el-table-column>
+                <el-table-column
+                        prop="reason"
+                        label="损坏原因"
+                        align="center">
+                </el-table-column>
+                <el-table-column
+                        prop="status"
+                        label="状态"
+                        align="center">
+                </el-table-column>
+                <el-table-column
+                        prop="finishDate"
+                        label="完成日期"
+                        align="center">
+                </el-table-column>
+                <el-table-column
+                        label="操作"
+                        align="center"
+                        show-overflow-tooltip>
+                    <template slot-scope="scope">
+                        <el-row>
+                            <el-button type="primary"
+                                       @click="editInfo(scope.$index,scope.row);dialogFormVisible=true">编辑
+                            </el-button>
+                        </el-row>
+                    </template>
+                </el-table-column>
+            </el-table>
+
+            <!--编辑学生信息对话框-->
+            <el-dialog
+                    title="编辑报修信息"
+                    :visible.sync="dialogFormVisible"
+                    width="30%">
+
+                <!--对话框内容-->
+                <el-form ref="form" :model="editRepair" label-width="80px">
+                    <el-form-item label="宿舍号">
+                        <el-input v-model="editRepair.departmentId" disabled></el-input>
+                    </el-form-item>
+
+                    <el-form-item label="财产号">
+                        <el-input v-model="editRepair.propertyNum" disabled></el-input>
+                    </el-form-item>
+
+                    <el-form-item label="报修日期">
+                        <el-date-picker type="date" placeholder="选择日期" v-model="editRepair.startDate"
+                                        style="width: 100%;" disabled></el-date-picker>
+                    </el-form-item>
+
+                    <el-form-item label="损坏原因">
+                        <el-input v-model="editRepair.reason" disabled></el-input>
+                    </el-form-item>
+
+                    <el-form-item label="状态">
+                        <el-input v-model="editRepair.status"></el-input>
+                    </el-form-item>
+
+                    <el-form-item label="完成日期">
+                        <el-date-picker type="date" placeholder="选择日期" v-model="editRepair.finishDate"
+                                        value-format="yyyy-MM-dd"
+                                        style="width: 100% ;" disabled></el-date-picker>
+                    </el-form-item>
+
+                    <el-form-item align="center">
+                        <el-button type="primary" @click="editRepairInfo">提交</el-button>
+                        <el-button @click="closeDialogForm">取消</el-button>
+                    </el-form-item>
+
+                </el-form>
+            </el-dialog>
+        </template>
+    </div>
+</div>
+
+<script>
+    new Vue({
+        el: "#container",
+        data: {
+            user: "",
+
+            tableData: [{
+                departmentId: "",
+                propertyNum: "",
+                startDate: "",
+                reason: "",
+                status:"",
+                finishDate: "",
+            }],
+            editRepair: [],
+            dialogFormVisible: false,
+        },
+        mounted() {
+            this.loginUser();
+            this.selectAll();
+        },
+        methods: {
+            loginUser() {
+                let _this = this;
+                axios({
+                    method: "post",
+                    url: "http://localhost:8080/worker/getCookie",
+                }).then(function (resp) {
+                    _this.user = resp.data;
+                })
+            },
+
+            selectAll() {
+                let _this = this;
+                axios({
+                    method: "get",
+                    url: "http://localhost:8080/worker/selectRepair"
+                }).then(function (resp) {
+                    _this.tableData = resp.data;
+                })
+            },
+            //实现编辑报修数据的数据回显
+            editInfo(index, row) {
+
+                this.dialogFormVisible = true;
+                this.editRepair = row;
+            },
+            closeDialogForm(){
+                this.dialogFormVisible = false;
+            },
+            //编辑报修数据
+            editRepairInfo() {
+                let that = this;
+                axios({
+                    method: "post",
+                    url: "http://localhost:8080/worker/editRepairInfoByWorker",
+                    data: that.editRepair
+                }).then(function (resp) {
+                    if (resp.data == "success") {
+                        //关闭窗口
+                        that.dialogFormVisible = false;
+                        that.selectAll();
+                        that.$message({
+                            message: '恭喜你，编辑成功',
+                            type: 'success'
+                        });
+                    }
+                })
+            },
+        }
+    });
+</script>
 </body>
 </html>

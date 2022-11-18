@@ -63,4 +63,19 @@ public class RepairServiceImpl implements RepairService {
 
         sqlSession.close();
     }
+
+    @Override
+    public void editRepairInfoByWorker(Repair repair) {
+        //获取SqlSession对象
+        SqlSession sqlSession = factory.openSession();
+
+        //获取UserMapper对象
+        RepairMapper mapper = sqlSession.getMapper(RepairMapper.class);
+
+        mapper.editRepairInfoByWorker(repair);
+        //提交事务
+        sqlSession.commit();
+
+        sqlSession.close();
+    }
 }

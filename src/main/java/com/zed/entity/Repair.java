@@ -15,6 +15,7 @@ public class Repair {
 
     private String reason;
 
+    private String status;
     @JSONField(format = "yyyy-MM-dd")
     private Date finishDate;
 
@@ -58,6 +59,14 @@ public class Repair {
         this.reason = reason;
     }
 
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
     public Date getFinishDate() {
         return finishDate;
     }
@@ -72,9 +81,10 @@ public class Repair {
                 "id=" + id +
                 ", departmentId='" + departmentId + '\'' +
                 ", propertyNum='" + propertyNum + '\'' +
-                ", startDate='" + startDate + '\'' +
+                ", startDate=" + startDate +
                 ", reason='" + reason + '\'' +
-                ", finishDate='" + finishDate + '\'' +
+                ", status='" + status + '\'' +
+                ", finishDate=" + finishDate +
                 '}';
     }
 }

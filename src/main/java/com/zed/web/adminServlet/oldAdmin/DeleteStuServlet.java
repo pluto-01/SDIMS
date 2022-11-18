@@ -23,7 +23,7 @@ public class DeleteStuServlet extends HttpServlet {
         String params = br.readLine();//JSON字符串
 
         //将JSON字符串转为int类型
-       int id = JSON.parseObject(params, int.class);
+        int id = JSON.parseObject(params, int.class);
 
         //调用方法
         stuInfoService.deleteStuInfo(id);
@@ -34,6 +34,6 @@ public class DeleteStuServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        this.doGet(request,response);
+        this.doGet(request, response);
     }
 }

@@ -3,7 +3,7 @@ package com.zed.entity;
 
 import java.util.List;
 
-public class Page<T>{
+public class Page<T> {
     private int totalCount;
     private List<T> rows;
 

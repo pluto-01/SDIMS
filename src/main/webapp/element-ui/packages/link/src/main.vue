@@ -1,14 +1,14 @@
 <template>
   <a
-    :class="[
+      :class="[
       'el-link',
       type ? `el-link--${type}` : '',
       disabled && 'is-disabled',
       underline && !disabled && 'is-underline'
     ]"
-    :href="disabled ? null : href"
-    v-bind="$attrs"
-    @click="handleClick"
+      :href="disabled ? null : href"
+      v-bind="$attrs"
+      @click="handleClick"
   >
 
     <i :class="icon" v-if="icon"></i>
@@ -17,7 +17,9 @@
       <slot></slot>
     </span>
 
-    <template v-if="$slots.icon"><slot v-if="$slots.icon" name="icon"></slot></template>
+    <template v-if="$slots.icon">
+      <slot v-if="$slots.icon" name="icon"></slot>
+    </template>
   </a>
 </template>
 

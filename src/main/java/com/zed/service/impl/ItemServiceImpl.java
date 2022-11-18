@@ -14,6 +14,7 @@ import java.util.List;
 public class ItemServiceImpl implements ItemService {
     //创建SqlSessionFactory对象
     SqlSessionFactory factory = SqlSessionFactoryUtils.getSqlSessionFactory();
+
     @Override
     public List<Item> selectItemIn() {
         //获取SqlSession对象

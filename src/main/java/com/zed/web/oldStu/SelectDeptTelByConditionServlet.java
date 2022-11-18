@@ -15,6 +15,7 @@ import java.util.List;
 @WebServlet("/selectDeptTelByConditionServlet")
 public class SelectDeptTelByConditionServlet extends HttpServlet {
     private StuInfoService stuInfoService = new StuInfoServiceImpl();
+
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         //获取查询条件对象
@@ -22,7 +23,7 @@ public class SelectDeptTelByConditionServlet extends HttpServlet {
         String params = br.readLine();
 
         //转为StuInfo
-        StuInfo stuInfo = JSON.parseObject(params,StuInfo.class);
+        StuInfo stuInfo = JSON.parseObject(params, StuInfo.class);
 
         //调用service
         List<StuInfo> tels = stuInfoService.selectTelByCondition(stuInfo);
@@ -38,6 +39,6 @@ public class SelectDeptTelByConditionServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        this.doGet(request,response);
+        this.doGet(request, response);
     }
 }

@@ -23,7 +23,7 @@
     padding-left: 10px;
 }
 
-.welcome{
+.welcome {
     position: absolute;
     right: 80px;
     top: 35px;
@@ -31,7 +31,7 @@
     color: rgb(252, 252, 252);
 }
 
-.logout{
+.logout {
     position: absolute;
     right: 20px;
     top: 35px;

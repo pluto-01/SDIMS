@@ -14,6 +14,7 @@ import java.util.List;
 @WebServlet("/selectDeptTelServlet")
 public class SelectDeptTelServlet extends HttpServlet {
     private StuInfoService stuInfoService = new StuInfoServiceImpl();
+
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         //调用UserService查询
@@ -31,6 +32,6 @@ public class SelectDeptTelServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        this.doGet(request,response);
+        this.doGet(request, response);
     }
 }

@@ -17,6 +17,7 @@ public class VisitorServiceImpl implements VisitorService {
 
     /**
      * 查询访客信息
+     *
      * @return
      */
     @Override
@@ -39,6 +40,7 @@ public class VisitorServiceImpl implements VisitorService {
 
     /**
      * 新增访客信息 --->访客登记功能
+     *
      * @param visitor
      */
     @Override

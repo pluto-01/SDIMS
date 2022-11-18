@@ -11,12 +11,14 @@ public interface RepairService {
 
     /**
      * 查询所有报修信息
+     *
      * @return
      */
     List<Repair> selectRepair();
 
     /**
      * 管理员对报修信息进行修改
+     *
      * @param repair
      * @return
      */
@@ -24,6 +26,7 @@ public interface RepairService {
 
     /**
      * 学生添加报修信息
+     *
      * @param repair
      */
     void addRepairInfo(Repair repair);

@@ -14,6 +14,7 @@ import java.util.List;
 public class PropertyServiceImpl implements PropertyService {
     //创建SqlSessionFactory对象
     SqlSessionFactory factory = SqlSessionFactoryUtils.getSqlSessionFactory();
+
     @Override
     public List<Property> selectProperty() {
         //获取SqlSession对象

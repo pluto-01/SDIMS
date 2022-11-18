@@ -16,14 +16,15 @@ import java.net.URLDecoder;
 import java.util.List;
 
 @WebServlet("/admin/*")
-public class AdminServlet extends BaseServlet{
+public class AdminServlet extends BaseServlet {
     private StuInfoService stuInfoService = new StuInfoServiceImpl();
     private VisitorService visitorService = new VisitorServiceImpl();
     private ItemService itemService = new ItemServiceImpl();
     private PropertyService propertyService = new PropertyServiceImpl();
     private RepairService repairService = new RepairServiceImpl();
+    private BillService billService = new BillServiceImpl();
 
-    public void selectStu(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
+    public void selectStu(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         //调用UserService查询
 
         List<StuInfo> stus = stuInfoService.selectStu();
@@ -36,7 +37,8 @@ public class AdminServlet extends BaseServlet{
         response.setContentType("text/json;charset=utf-8");
         response.getWriter().write(jsonString);
     }
-    public void addStu(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
+
+    public void addStu(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         request.setCharacterEncoding("UTF-8");
 
         //接收以JSON格式传来的数据
@@ -52,7 +54,8 @@ public class AdminServlet extends BaseServlet{
         //添加成功则提示
         response.getWriter().write("success");
     }
-    public void deleteStu(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
+
+    public void deleteStu(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         request.setCharacterEncoding("UTF-8");
 
         //接收以JSON格式传来的数据
@@ -68,7 +71,8 @@ public class AdminServlet extends BaseServlet{
         //添加成功则提示
         response.getWriter().write("success");
     }
-    public void editInfo(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
+
+    public void editInfo(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         request.setCharacterEncoding("UTF-8");
 
         //接收以JSON格式传来的数据
@@ -84,7 +88,8 @@ public class AdminServlet extends BaseServlet{
         //添加成功则提示
         response.getWriter().write("success");
     }
-    public void selectByPageAndCondition(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
+
+    public void selectByPageAndCondition(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         //接收 当前页码 和 每页展示条数 url?currentPage&pageSize
         String _currentPage = request.getParameter("currentPage");
         String _pageSize = request.getParameter("pageSize");
@@ -97,10 +102,10 @@ public class AdminServlet extends BaseServlet{
         String params = br.readLine();
 
         //转为StuInfo
-        StuInfo stuInfo = JSON.parseObject(params,StuInfo.class);
+        StuInfo stuInfo = JSON.parseObject(params, StuInfo.class);
 
         //调用service
-        Page<StuInfo> page = stuInfoService.selectByPageAndCondition(currentPage, pageSize,stuInfo);
+        Page<StuInfo> page = stuInfoService.selectByPageAndCondition(currentPage, pageSize, stuInfo);
 
         //将数据转为JSON
         String jsonString = JSON.toJSONString(page);
@@ -109,7 +114,8 @@ public class AdminServlet extends BaseServlet{
         response.setContentType("text/json;charset=utf-8");
         response.getWriter().write(jsonString);
     }
-    public void selectByPage(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
+
+    public void selectByPage(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         request.setCharacterEncoding("UTF-8");
 
         //接收 当前页码 和 每页展示条数 url?currentPage&pageSize
@@ -133,7 +139,8 @@ public class AdminServlet extends BaseServlet{
         response.setContentType("text/json;charset=utf-8");
         response.getWriter().write(jsonString);
     }
-//    public void addVisitor(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
+    //    public void addVisitor(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 //        request.setCharacterEncoding("UTF-8");
 //
 //        //接收以JSON格式传来的数据
@@ -162,14 +169,15 @@ public class AdminServlet extends BaseServlet{
         response.setContentType("text/json;charset=utf-8");
         response.getWriter().write(jsonString);
     }
-    public void getCookie(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
+
+    public void getCookie(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         Cookie[] cookies = request.getCookies();
 
         String value = "";
-        for(Cookie cookie : cookies){
+        for (Cookie cookie : cookies) {
             String name = cookie.getName();
             if ("username".equals(name)) {
-                value = URLDecoder.decode(cookie.getValue(),"utf-8");
+                value = URLDecoder.decode(cookie.getValue(), "utf-8");
                 break;
             }
         }
@@ -177,7 +185,8 @@ public class AdminServlet extends BaseServlet{
         response.setContentType("text/json;charset=utf-8");
         response.getWriter().write(jsonString);
     }
-    public void selectItemIn(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
+
+    public void selectItemIn(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         List<Item> items = itemService.selectItemIn();
 
         //将数据转为JSON
@@ -188,7 +197,8 @@ public class AdminServlet extends BaseServlet{
         response.setContentType("text/json;charset=utf-8");
         response.getWriter().write(jsonString);
     }
-//    public void addItemIn(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
+    //    public void addItemIn(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 //        request.setCharacterEncoding("UTF-8");
 //
 //        //接收以JSON格式传来的数据
@@ -204,7 +214,7 @@ public class AdminServlet extends BaseServlet{
 //        //添加成功则提示
 //        response.getWriter().write("success");
 //    }
-    public void selectItemOut(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
+    public void selectItemOut(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         List<Item> items = itemService.selectItemOut();
 
         //将数据转为JSON
@@ -215,7 +225,8 @@ public class AdminServlet extends BaseServlet{
         response.setContentType("text/json;charset=utf-8");
         response.getWriter().write(jsonString);
     }
-//    public void addItemOut(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
+    //    public void addItemOut(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 //        request.setCharacterEncoding("UTF-8");
 //
 //        //接收以JSON格式传来的数据
@@ -231,7 +242,7 @@ public class AdminServlet extends BaseServlet{
 //        //添加成功则提示
 //        response.getWriter().write("success");
 //    }
-    public void selectProperty(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
+    public void selectProperty(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         List<Property> props = propertyService.selectProperty();
 
         //将数据转为JSON
@@ -242,6 +253,7 @@ public class AdminServlet extends BaseServlet{
         response.setContentType("text/json;charset=utf-8");
         response.getWriter().write(jsonString);
     }
+
     public void addProperty(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         request.setCharacterEncoding("UTF-8");
 
@@ -258,7 +270,8 @@ public class AdminServlet extends BaseServlet{
         //添加成功则提示
         response.getWriter().write("success");
     }
-    public void selectRepair(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
+
+    public void selectRepair(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         List<Repair> repairs = repairService.selectRepair();
 
         //将数据转为JSON
@@ -269,7 +282,8 @@ public class AdminServlet extends BaseServlet{
         response.setContentType("text/json;charset=utf-8");
         response.getWriter().write(jsonString);
     }
-    public void editRepairInfo(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
+
+    public void editRepairInfo(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         request.setCharacterEncoding("UTF-8");
 
         //接收以JSON格式传来的数据
@@ -281,6 +295,71 @@ public class AdminServlet extends BaseServlet{
 
         //调用方法
         repairService.editRepairInfo(repair);
+
+        //添加成功则提示
+        response.getWriter().write("success");
+    }
+
+    public void selectBill(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        List<Bill> bills = billService.selectBill();
+
+        //将数据转为JSON
+        String jsonString = JSON.toJSONString(bills);
+
+        //写数据
+        //防止中文乱码
+        response.setContentType("text/json;charset=utf-8");
+        response.getWriter().write(jsonString);
+    }
+
+    public void selectBillByCondition(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        //获取查询条件对象
+        BufferedReader br = request.getReader();
+        String params = br.readLine();
+
+        //转为StuInfo
+        Bill bill = JSON.parseObject(params, Bill.class);
+
+        //调用service
+        List<Bill> bills = billService.selectBillByCondition(bill);
+
+        //将数据转为JSON
+        String jsonString = JSON.toJSONString(bills);
+        //写数据
+        //防止中文乱码
+        response.setContentType("text/json;charset=utf-8");
+        response.getWriter().write(jsonString);
+    }
+
+    public void editBillInfo(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        request.setCharacterEncoding("UTF-8");
+
+        //接收以JSON格式传来的数据
+        BufferedReader br = request.getReader();
+        String params = br.readLine();//JSON字符串
+
+        //将JSON字符串转为StuInfo对象
+        Bill bill = JSON.parseObject(params, Bill.class);
+
+        //调用方法
+        billService.editBill(bill);
+
+        //添加成功则提示
+        response.getWriter().write("success");
+    }
+
+    public void addBill(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        request.setCharacterEncoding("UTF-8");
+
+        //接收以JSON格式传来的数据
+        BufferedReader br = request.getReader();
+        String params = br.readLine();//JSON字符串
+
+        //将JSON字符串转为StuInfo对象
+        Bill bill = JSON.parseObject(params, Bill.class);
+
+        //调用方法
+        billService.addBill(bill);
 
         //添加成功则提示
         response.getWriter().write("success");

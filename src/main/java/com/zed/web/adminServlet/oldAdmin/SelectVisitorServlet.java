@@ -14,6 +14,7 @@ import java.util.List;
 @WebServlet("/selectVisitorServlet")
 public class SelectVisitorServlet extends HttpServlet {
     private VisitorService visitorService = new VisitorServiceImpl();
+
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         //visitorService
@@ -31,6 +32,6 @@ public class SelectVisitorServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        this.doGet(request,response);
+        this.doGet(request, response);
     }
 }

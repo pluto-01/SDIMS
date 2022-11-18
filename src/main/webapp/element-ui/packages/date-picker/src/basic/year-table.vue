@@ -44,58 +44,58 @@
 </template>
 
 <script type="text/babel">
-  import { hasClass } from 'element-ui/src/utils/dom';
-  import { isDate, range, nextDate, getDayCountOfYear } from 'element-ui/src/utils/date-util';
-  import { arrayFindIndex, coerceTruthyValueToArray } from 'element-ui/src/utils/util';
+import {hasClass} from 'element-ui/src/utils/dom';
+import {isDate, range, nextDate, getDayCountOfYear} from 'element-ui/src/utils/date-util';
+import {arrayFindIndex, coerceTruthyValueToArray} from 'element-ui/src/utils/util';
 
-  const datesInYear = year => {
-    const numOfDays = getDayCountOfYear(year);
-    const firstDay = new Date(year, 0, 1);
-    return range(numOfDays).map(n => nextDate(firstDay, n));
-  };
+const datesInYear = year => {
+  const numOfDays = getDayCountOfYear(year);
+  const firstDay = new Date(year, 0, 1);
+  return range(numOfDays).map(n => nextDate(firstDay, n));
+};
 
-  export default {
-    props: {
-      disabledDate: {},
-      value: {},
-      defaultValue: {
-        validator(val) {
-          // null or valid Date Object
-          return val === null || (val instanceof Date && isDate(val));
-        }
-      },
-      date: {}
-    },
-
-    computed: {
-      startYear() {
-        return Math.floor(this.date.getFullYear() / 10) * 10;
+export default {
+  props: {
+    disabledDate: {},
+    value: {},
+    defaultValue: {
+      validator(val) {
+        // null or valid Date Object
+        return val === null || (val instanceof Date && isDate(val));
       }
     },
+    date: {}
+  },
 
-    methods: {
-      getCellStyle(year) {
-        const style = {};
-        const today = new Date();
+  computed: {
+    startYear() {
+      return Math.floor(this.date.getFullYear() / 10) * 10;
+    }
+  },
 
-        style.disabled = typeof this.disabledDate === 'function'
+  methods: {
+    getCellStyle(year) {
+      const style = {};
+      const today = new Date();
+
+      style.disabled = typeof this.disabledDate === 'function'
           ? datesInYear(year).every(this.disabledDate)
           : false;
-        style.current = arrayFindIndex(coerceTruthyValueToArray(this.value), date => date.getFullYear() === year) >= 0;
-        style.today = today.getFullYear() === year;
-        style.default = this.defaultValue && this.defaultValue.getFullYear() === year;
+      style.current = arrayFindIndex(coerceTruthyValueToArray(this.value), date => date.getFullYear() === year) >= 0;
+      style.today = today.getFullYear() === year;
+      style.default = this.defaultValue && this.defaultValue.getFullYear() === year;
 
-        return style;
-      },
+      return style;
+    },
 
-      handleYearTableClick(event) {
-        const target = event.target;
-        if (target.tagName === 'A') {
-          if (hasClass(target.parentNode, 'disabled')) return;
-          const year = target.textContent || target.innerText;
-          this.$emit('pick', Number(year));
-        }
+    handleYearTableClick(event) {
+      const target = event.target;
+      if (target.tagName === 'A') {
+        if (hasClass(target.parentNode, 'disabled')) return;
+        const year = target.textContent || target.innerText;
+        this.$emit('pick', Number(year));
       }
     }
-  };
+  }
+};
 </script>

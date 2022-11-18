@@ -38,7 +38,7 @@ public class LoginServlet extends HttpServlet {
         //调用方法
         User user1 = loginMapper.select1(username, password);
         User user2 = loginMapper.select2(username, password);
-        User user3 = loginMapper.select3(username,password);
+        User user3 = loginMapper.select3(username, password);
         //释放资源
         sqlSession.close();
 
@@ -51,21 +51,18 @@ public class LoginServlet extends HttpServlet {
             if (user1 != null) {
 //                HttpSession session1 = request.getSession();
 //                session1.setAttribute("username",user1.getUsername());
-                Cookie cookie = new Cookie("username", URLEncoder.encode(user1.getName(),"utf-8"));
+                Cookie cookie = new Cookie("username", URLEncoder.encode(user1.getName(), "utf-8"));
                 response.addCookie(cookie);
                 request.getRequestDispatcher("/user-admin.html").forward(request, response);
-            }
-            else
+            } else
                 writer.write("登录失败");
         }
         if (value.equals("2")) {
-            if (user2 != null)
-            {
-                Cookie cookie = new Cookie("username", URLEncoder.encode(user2.getName(),"utf-8"));
+            if (user2 != null) {
+                Cookie cookie = new Cookie("username", URLEncoder.encode(user2.getName(), "utf-8"));
                 response.addCookie(cookie);
                 request.getRequestDispatcher("/user-stu.html").forward(request, response);
-            }
-            else
+            } else
                 writer.write("登录失败");
         }
         if (value.equals("3")) {
@@ -73,8 +70,7 @@ public class LoginServlet extends HttpServlet {
                 HttpSession session3 = request.getSession();
                 session3.setAttribute("username", user3.getUsername());
                 request.getRequestDispatcher("/user-worker.html").forward(request, response);
-            }
-            else
+            } else
                 writer.write("登录失败");
         }
     }

@@ -14,6 +14,7 @@ import java.io.IOException;
 @WebServlet("/addVisitorServlet")
 public class addVisitorServlet extends HttpServlet {
     private VisitorService visitorService = new VisitorServiceImpl();
+
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         request.setCharacterEncoding("UTF-8");
@@ -34,6 +35,6 @@ public class addVisitorServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        this.doGet(request,response);
+        this.doGet(request, response);
     }
 }

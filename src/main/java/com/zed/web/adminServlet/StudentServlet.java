@@ -2,18 +2,9 @@ package com.zed.web.adminServlet;
 
 
 import com.alibaba.fastjson.JSON;
-import com.zed.entity.Item;
-import com.zed.entity.Repair;
-import com.zed.entity.StuInfo;
-import com.zed.entity.Visitor;
-import com.zed.service.ItemService;
-import com.zed.service.RepairService;
-import com.zed.service.StuInfoService;
-import com.zed.service.VisitorService;
-import com.zed.service.impl.ItemServiceImpl;
-import com.zed.service.impl.RepairServiceImpl;
-import com.zed.service.impl.StuInfoServiceImpl;
-import com.zed.service.impl.VisitorServiceImpl;
+import com.zed.entity.*;
+import com.zed.service.*;
+import com.zed.service.impl.*;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -23,16 +14,17 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.net.URLDecoder;
-import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 @WebServlet("/stu/*")
-public class StudentServlet extends BaseServlet{
+public class StudentServlet extends BaseServlet {
     private StuInfoService stuInfoService = new StuInfoServiceImpl();
     private VisitorService visitorService = new VisitorServiceImpl();
     private ItemService itemService = new ItemServiceImpl();
 
     private RepairService repairService = new RepairServiceImpl();
+    private BillService billService = new BillServiceImpl();
 
 
     public void getUserInfo(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -51,13 +43,14 @@ public class StudentServlet extends BaseServlet{
         //添加成功则提示
         response.getWriter().write("success");
     }
+
     public void selectDeptTelByCondition(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         //获取查询条件对象
         BufferedReader br = request.getReader();
         String params = br.readLine();
 
         //转为StuInfo
-        StuInfo stuInfo = JSON.parseObject(params,StuInfo.class);
+        StuInfo stuInfo = JSON.parseObject(params, StuInfo.class);
         //调用service
         List<StuInfo> tels = stuInfoService.selectTelByCondition(stuInfo);
 
@@ -69,6 +62,7 @@ public class StudentServlet extends BaseServlet{
         response.setContentType("text/json;charset=utf-8");
         response.getWriter().write(jsonString);
     }
+
     public void selectDeptTel(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         //调用UserService查询
 
@@ -82,14 +76,15 @@ public class StudentServlet extends BaseServlet{
         response.setContentType("text/json;charset=utf-8");
         response.getWriter().write(jsonString);
     }
-    public void getCookie(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
+
+    public void getCookie(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         Cookie[] cookies = request.getCookies();
 
         String value = "";
-        for(Cookie cookie : cookies){
+        for (Cookie cookie : cookies) {
             String name = cookie.getName();
             if ("username".equals(name)) {
-                value = URLDecoder.decode(cookie.getValue(),"utf-8");
+                value = URLDecoder.decode(cookie.getValue(), "utf-8");
                 break;
             }
         }
@@ -97,6 +92,7 @@ public class StudentServlet extends BaseServlet{
         response.setContentType("text/json;charset=utf-8");
         response.getWriter().write(jsonString);
     }
+
     public void addVisitor(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         request.setCharacterEncoding("UTF-8");
 
@@ -113,6 +109,7 @@ public class StudentServlet extends BaseServlet{
         //添加成功则提示
         response.getWriter().write("success");
     }
+
     public void addItemIn(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         request.setCharacterEncoding("UTF-8");
 
@@ -129,6 +126,7 @@ public class StudentServlet extends BaseServlet{
         //添加成功则提示
         response.getWriter().write("success");
     }
+
     public void addItemOut(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         request.setCharacterEncoding("UTF-8");
 
@@ -146,15 +144,15 @@ public class StudentServlet extends BaseServlet{
         response.getWriter().write("success");
     }
 
-    public void  selectDeptInfo(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
+    public void selectDeptInfo(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
         Cookie[] cookies = request.getCookies();
 
         String value = "";
-        for(Cookie cookie : cookies){
+        for (Cookie cookie : cookies) {
             String name = cookie.getName();
             if ("username".equals(name)) {
-                value = URLDecoder.decode(cookie.getValue(),"utf-8");
+                value = URLDecoder.decode(cookie.getValue(), "utf-8");
                 break;
             }
         }
@@ -171,6 +169,7 @@ public class StudentServlet extends BaseServlet{
         response.setContentType("text/json;charset=utf-8");
         response.getWriter().write(jsonString);
     }
+
     public void addRepairInfo(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         request.setCharacterEncoding("UTF-8");
 
@@ -188,5 +187,62 @@ public class StudentServlet extends BaseServlet{
         response.getWriter().write("success");
     }
 
+    public void selectDeptBill(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
+        Cookie[] cookies = request.getCookies();
+
+        String value = "";
+        for (Cookie cookie : cookies) {
+            String name = cookie.getName();
+            if ("username".equals(name)) {
+                value = URLDecoder.decode(cookie.getValue(), "utf-8");
+                break;
+            }
+        }
+        Calendar cal = Calendar.getInstance();
+        int _year = cal.get(Calendar.YEAR);
+        int _month = cal.get(Calendar.MONTH ) + 1;
+        String year =  _year + "-";
+        String month = "";
+        if(_month < 10)
+            month = "0" + _month;
+        else
+            month = _month + "";
+        String date = year + month;
+        //转为StuInfo
+        List<Bill> bills = billService.selectDeptBill(value,date);
+
+        //将数据转为JSON
+        String jsonString = JSON.toJSONString(bills);
+
+        //写数据
+        //防止中文乱码
+        response.setContentType("text/json;charset=utf-8");
+        response.getWriter().write(jsonString);
+    }
+
+    public void selectAllBill(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
+        Cookie[] cookies = request.getCookies();
+
+        String value = "";
+        for (Cookie cookie : cookies) {
+            String name = cookie.getName();
+            if ("username".equals(name)) {
+                value = URLDecoder.decode(cookie.getValue(), "utf-8");
+                break;
+            }
+        }
+        //转为StuInfo
+        List<Bill> bills = billService.selectAllBill(value);
+
+        //将数据转为JSON
+        String jsonString = JSON.toJSONString(bills);
+
+        //写数据
+        //防止中文乱码
+        response.setContentType("text/json;charset=utf-8");
+        response.getWriter().write(jsonString);
+    }
 
 }

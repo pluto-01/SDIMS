@@ -14,48 +14,48 @@
 </template>
 
 <script>
-  import Color from '../color';
+import Color from '../color';
 
-  export default {
-    props: {
-      colors: { type: Array, required: true },
-      color: { required: true }
+export default {
+  props: {
+    colors: {type: Array, required: true},
+    color: {required: true}
+  },
+  data() {
+    return {
+      rgbaColors: this.parseColors(this.colors, this.color)
+    };
+  },
+  methods: {
+    handleSelect(index) {
+      this.color.fromString(this.colors[index]);
     },
-    data() {
-      return {
-        rgbaColors: this.parseColors(this.colors, this.color)
-      };
-    },
-    methods: {
-      handleSelect(index) {
-        this.color.fromString(this.colors[index]);
-      },
-      parseColors(colors, color) {
-        return colors.map(value => {
-          const c = new Color();
-          c.enableAlpha = true;
-          c.format = 'rgba';
-          c.fromString(value);
-          c.selected = c.value === color.value;
-          return c;
-        });
-      }
-    },
-    watch: {
-      '$parent.currentColor'(val) {
-        const color = new Color();
-        color.fromString(val);
-
-        this.rgbaColors.forEach(item => {
-          item.selected = color.compare(item);
-        });
-      },
-      colors(newVal) {
-        this.rgbaColors = this.parseColors(newVal, this.color);
-      },
-      color(newVal) {
-        this.rgbaColors = this.parseColors(this.colors, newVal);
-      }
+    parseColors(colors, color) {
+      return colors.map(value => {
+        const c = new Color();
+        c.enableAlpha = true;
+        c.format = 'rgba';
+        c.fromString(value);
+        c.selected = c.value === color.value;
+        return c;
+      });
     }
-  };
+  },
+  watch: {
+    '$parent.currentColor'(val) {
+      const color = new Color();
+      color.fromString(val);
+
+      this.rgbaColors.forEach(item => {
+        item.selected = color.compare(item);
+      });
+    },
+    colors(newVal) {
+      this.rgbaColors = this.parseColors(newVal, this.color);
+    },
+    color(newVal) {
+      this.rgbaColors = this.parseColors(this.colors, newVal);
+    }
+  }
+};
 </script>

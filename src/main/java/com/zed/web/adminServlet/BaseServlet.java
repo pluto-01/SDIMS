@@ -19,13 +19,13 @@ public class BaseServlet extends HttpServlet {
         String methodName = requestURI.substring(index + 1);  //   /select
         Class<? extends BaseServlet> aClass = this.getClass();
         try {
-            Method method = aClass.getMethod(methodName,HttpServletRequest.class,HttpServletResponse.class);
+            Method method = aClass.getMethod(methodName, HttpServletRequest.class, HttpServletResponse.class);
             try {
-                method.invoke(this,req,resp);
+                method.invoke(this, req, resp);
             } catch (IllegalAccessException | InvocationTargetException e) {
                 e.printStackTrace();
             }
-        }catch (NoSuchMethodException e){
+        } catch (NoSuchMethodException e) {
             e.printStackTrace();
         }
     }

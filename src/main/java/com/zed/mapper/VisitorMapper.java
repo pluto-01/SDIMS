@@ -9,6 +9,7 @@ import java.util.List;
 public interface VisitorMapper {
     /**
      * 查询所有访客信息
+     *
      * @return
      */
     @Select("select * from t_visit")
@@ -17,6 +18,7 @@ public interface VisitorMapper {
 
     /**
      * 新增访客信息 --->访客登记功能
+     *
      * @param visitor
      */
     @Insert("insert into t_visit values(#{visitor},#{gender},#{reason},#{tel},#{date})")

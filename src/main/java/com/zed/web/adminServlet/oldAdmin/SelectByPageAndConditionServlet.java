@@ -30,10 +30,10 @@ public class SelectByPageAndConditionServlet extends HttpServlet {
         String params = br.readLine();
 
         //转为StuInfo
-        StuInfo stuInfo = JSON.parseObject(params,StuInfo.class);
+        StuInfo stuInfo = JSON.parseObject(params, StuInfo.class);
 
         //调用service
-        Page<StuInfo> page = stuInfoService.selectByPageAndCondition(currentPage, pageSize,stuInfo);
+        Page<StuInfo> page = stuInfoService.selectByPageAndCondition(currentPage, pageSize, stuInfo);
 
         //将数据转为JSON
         String jsonString = JSON.toJSONString(page);
@@ -46,6 +46,6 @@ public class SelectByPageAndConditionServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        this.doGet(request,response);
+        this.doGet(request, response);
     }
 }

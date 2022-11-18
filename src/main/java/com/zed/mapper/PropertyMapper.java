@@ -11,6 +11,7 @@ public interface PropertyMapper {
 
     /**
      * 查询所有财产信息
+     *
      * @return
      */
     @Select("select * from t_property")
@@ -19,6 +20,7 @@ public interface PropertyMapper {
 
     /**
      * 新增财产信息
+     *
      * @param property
      */
     @Insert("insert into t_property values(#{propertyNum},#{propertyName},#{propertyCount})")

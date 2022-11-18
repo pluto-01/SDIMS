@@ -10,12 +10,12 @@ public class Repair {
     private String departmentId;
     private String propertyNum;
 
-    @JSONField(format="yyyy-MM-dd")
+    @JSONField(format = "yyyy-MM-dd")
     private Date startDate;
 
     private String reason;
 
-    @JSONField(format="yyyy-MM-dd")
+    @JSONField(format = "yyyy-MM-dd")
     private Date finishDate;
 
     public int getId() {

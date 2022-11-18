@@ -10,12 +10,14 @@ public interface PropertyService {
 
     /**
      * 查询所有财产信息
+     *
      * @return
      */
     List<Property> selectProperty();
 
     /**
      * 新增财产信息
+     *
      * @param property
      */
     void addProperty(Property property);

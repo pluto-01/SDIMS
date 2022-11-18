@@ -16,8 +16,9 @@ public class SelectByPageServlet extends HttpServlet {
 
 
     private StuInfoService stuInfoService = new StuInfoServiceImpl();
+
     @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
         request.setCharacterEncoding("UTF-8");
 
@@ -45,6 +46,6 @@ public class SelectByPageServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        this.doGet(request,response);
+        this.doGet(request, response);
     }
 }

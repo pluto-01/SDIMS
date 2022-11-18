@@ -10,6 +10,7 @@ public interface RepairMapper {
 
     /**
      * 查询所有报修信息
+     *
      * @return
      */
     @Select("select * from t_repair")
@@ -17,6 +18,7 @@ public interface RepairMapper {
 
     /**
      * 管理员对报修信息进行修改
+     *
      * @param repair
      * @return
      */
@@ -24,6 +26,7 @@ public interface RepairMapper {
 
     /**
      * 学生添加报修信息
+     *
      * @param repair
      */
     @Insert("insert into t_repair(departmentId, propertyNum, startdate, reason) values(#{departmentId},#{propertyNum},#{startDate},#{reason})")

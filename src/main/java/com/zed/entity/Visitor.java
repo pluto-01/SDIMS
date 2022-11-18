@@ -10,8 +10,9 @@ public class Visitor {
     private String reason;
     private String tel;
 
-    @JSONField(format="yyyy-MM-dd")
+//    @JSONField(format = "yyyy-MM-dd")
     private Date date;
+
     public String getVisitor() {
         return visitor;
     }

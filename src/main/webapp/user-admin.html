@@ -11,13 +11,13 @@
 
 
     <link rel="stylesheet" type="text/css" href="css/user-admin.css">
-<!--    element样式-->
+    <!--    element样式-->
     <script src="element-ui/lib/index.js"></script>
     <link rel="stylesheet" href="element-ui/lib/theme-chalk/index.css">
-<!--     引入样式 -->
-<!--    <link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">-->
-<!--    &lt;!&ndash; 引入组件库 &ndash;&gt;-->
-<!--    <script src="https://unpkg.com/element-ui/lib/index.js"></script>-->
+    <!--     引入样式 -->
+    <!--    <link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">-->
+    <!--    &lt;!&ndash; 引入组件库 &ndash;&gt;-->
+    <!--    <script src="https://unpkg.com/element-ui/lib/index.js"></script>-->
     <link rel="icon" href="images/favicon.ico">
 
 </head>
@@ -54,10 +54,10 @@
                         <span slot="title">访客登记</span>
                     </el-menu-item>
 
-<!--                    <el-menu-item index="4" @click="change4()">-->
-<!--                        <i class="el-icon-menu"></i>-->
-<!--                        <span slot="title">物品审核</span>-->
-<!--                    </el-menu-item>-->
+                    <!--                    <el-menu-item index="4" @click="change4()">-->
+                    <!--                        <i class="el-icon-menu"></i>-->
+                    <!--                        <span slot="title">物品审核</span>-->
+                    <!--                    </el-menu-item>-->
                     <el-submenu index="4">
                         <template slot="title">
                             <i class="el-icon-menu"></i>
@@ -247,7 +247,7 @@
 
                             <el-form-item align="center">
                                 <el-button type="primary" @click="editStuInfo">提交</el-button>
-                                <el-button>取消</el-button>
+                                <el-button @click="closeDialogForm">取消</el-button>
                             </el-form-item>
 
                         </el-form>
@@ -261,8 +261,8 @@
                             center>
                         <span>此操作将永久删除该行信息, 是否继续?</span>
                         <span slot="footer" class="dialog-footer">
-                                <el-button @click="centerDialogVisible = false">取 消</el-button>
                                 <el-button type="primary" @click="deleteStuInfo">确 定</el-button>
+                                <el-button @click="centerDialogVisible = false">取 消</el-button>
                             </span>
                     </el-dialog>
                 </template>
@@ -332,7 +332,7 @@
                     </el-table-column>
                 </el-table>
             </template>
-<!--            <span style="">备注：以上物品每间宿舍种类均有数量均等</span>-->
+            <!--            <span style="">备注：以上物品每间宿舍种类均有数量均等</span>-->
         </div>
         <div class="showInfo" v-show="count == 3">
             <el-row>
@@ -364,7 +364,8 @@
                     </el-form-item>
 
                     <el-form-item label="日期">
-                        <el-date-picker type="date" placeholder="选择日期" v-model="visitorInfo.date" value-format="yyyy-MM-dd"
+                        <el-date-picker type="date" placeholder="选择日期" v-model="visitorInfo.date"
+                                        value-format="yyyy-MM-dd"
                                         style="width: 100%;"></el-date-picker>
                     </el-form-item>
 
@@ -443,7 +444,8 @@
                     </el-form-item>
 
                     <el-form-item label="日期">
-                        <el-date-picker type="date" placeholder="选择日期" v-model="itemInInfo.date" value-format="yyyy-MM-dd"
+                        <el-date-picker type="date" placeholder="选择日期" v-model="itemInInfo.date"
+                                        value-format="yyyy-MM-dd"
                                         style="width: 100%;"></el-date-picker>
                     </el-form-item>
 
@@ -521,7 +523,8 @@
                     </el-form-item>
 
                     <el-form-item label="日期">
-                        <el-date-picker type="date" placeholder="选择日期" v-model="itemOutInfo.date" value-format="yyyy-MM-dd"
+                        <el-date-picker type="date" placeholder="选择日期" v-model="itemOutInfo.date"
+                                        value-format="yyyy-MM-dd"
                                         style="width: 100%;"></el-date-picker>
                     </el-form-item>
 
@@ -654,13 +657,14 @@
                         </el-form-item>
 
                         <el-form-item label="完成日期">
-                            <el-date-picker type="date" placeholder="选择日期" v-model="editRepair.finishDate" value-format="yyyy-MM-dd"
+                            <el-date-picker type="date" placeholder="选择日期" v-model="editRepair.finishDate"
+                                            value-format="yyyy-MM-dd"
                                             style="width: 100% ;"></el-date-picker>
                         </el-form-item>
 
                         <el-form-item align="center">
                             <el-button type="primary" @click="editRepairInfo">提交</el-button>
-                            <el-button>取消</el-button>
+                            <el-button @click="closeDialogForm6">取消</el-button>
                         </el-form-item>
 
                     </el-form>
@@ -668,7 +672,153 @@
             </template>
         </div>
         <div class="showInfo" v-show="count == 7">
-            66666666666666
+            <el-form :inline="true" :model="billInfoByCondition" class="demo-form-inline">
+                <el-form-item label="宿舍号">
+                    <el-input v-model="billInfoByCondition.departmentId" placeholder="输入宿舍号搜索"></el-input>
+                </el-form-item>
+
+                <el-form-item label="日期">
+                    <el-date-picker
+                            v-model="billInfoByCondition.date"
+                            type="month"
+                            value-format="yyyy-MM"
+                            placeholder="选择月">
+                    </el-date-picker>
+                </el-form-item>
+
+                <el-form-item>
+                    <el-button type="primary" @click="onSubmit7">查询</el-button>
+                </el-form-item>
+
+            </el-form>
+
+            <el-row>
+                <el-button type="primary" plain @click="onShow7()">新增信息</el-button>
+            </el-row>
+            <!--添加对话框表单-->
+            <el-dialog
+                    title="新增费用信息"
+                    :visible.sync="dialogVisible7"
+                    width="30%">
+
+                <!--对话框内容-->
+                <el-form :model="billInfo" label-width="80px" >
+
+                    <el-form-item label="宿舍号" prop="departmentId">
+                        <el-input v-model="billInfo.departmentId"></el-input>
+                    </el-form-item>
+
+                    <el-form-item label="水费" prop="name">
+                        <el-input v-model="billInfo.waterBill"></el-input>
+                    </el-form-item>
+
+                    <el-form-item label="电费" prop="major">
+                        <el-input v-model="billInfo.elecBill"></el-input>
+                    </el-form-item>
+
+                    <el-form-item label="日期">
+                        <el-date-picker
+                                v-model="billInfo.date"
+                                type="month"
+                                value-format="yyyy-MM"
+                                placeholder="选择月">
+                        </el-date-picker>
+                    </el-form-item>
+
+                    <el-form-item align="center">
+                        <el-button type="primary" @click="addBillInfo()">提交</el-button>
+                        <el-button @click="closeDialog7()">取消</el-button>
+                    </el-form-item>
+
+                </el-form>
+            </el-dialog>
+
+
+            <div class="searchResults">
+                <template>
+                    <el-table
+                            ref="multipleTable"
+                            :data="tableData7"
+                            tooltip-effect="dark"
+                            style="width: 100%"
+                            @selection-change="handleSelectionChange">
+                        <el-table-column
+                                type="index"
+                                width="50">
+                        </el-table-column>
+                        <el-table-column
+                                prop="departmentId"
+                                label="宿舍号"
+                                align="center">
+                        </el-table-column>
+                        <el-table-column
+                                prop="waterBill"
+                                label="水费"
+                                align="center">
+                        </el-table-column>
+                        <el-table-column
+                                prop="elecBill"
+                                label="电费"
+                                align="center">
+                        </el-table-column>
+
+                        <el-table-column
+                                prop="date"
+                                label="日期"
+                                align="center">
+                        </el-table-column>
+                        <el-table-column
+                                label="操作"
+                                align="center"
+                                show-overflow-tooltip>
+                            <template slot-scope="scope">
+                                <el-row>
+                                    <el-button type="primary"
+                                               @click="editInfo7(scope.$index,scope.row);dialogFormVisible7=true">编辑
+                                    </el-button>
+                                </el-row>
+                            </template>
+                        </el-table-column>
+                    </el-table>
+                    <!--编辑费用信息对话框-->
+                    <el-dialog
+                            title="编辑费用信息"
+                            :visible.sync="dialogFormVisible7"
+                            width="30%">
+
+                        <!--对话框内容-->
+                        <el-form ref="form" :model="editBill" label-width="80px">
+
+                            <el-form-item label="宿舍号">
+                                <el-input v-model="editBill.departmentId"></el-input>
+                            </el-form-item>
+
+                            <el-form-item label="水费">
+                                <el-input v-model="editBill.waterBill"></el-input>
+                            </el-form-item>
+
+                            <el-form-item label="电费">
+                                <el-input v-model="editBill.elecBill"></el-input>
+                            </el-form-item>
+
+                            <el-form-item label="日期">
+                                <el-date-picker
+                                        v-model="editBill.date"
+                                        type="month"
+                                        value-format="yyyy-MM"
+                                        placeholder="选择月份">
+                                </el-date-picker>
+                            </el-form-item>
+
+                            <el-form-item align="center">
+                                <el-button type="primary" @click="editBillInfo">提交</el-button>
+                                <el-button @click="closeDialogForm7">取消</el-button>
+                            </el-form-item>
+
+                        </el-form>
+                    </el-dialog>
+                </template>
+            </div>
         </div>
     </div>
 </div>
@@ -771,10 +921,10 @@
                 propertyName: "",
                 propertyCount: "",
             },
-            tableData2:[{
-                propertyNum:"",
-                propertyName:"",
-                propertyCount:"",
+            tableData2: [{
+                propertyNum: "",
+                propertyName: "",
+                propertyCount: "",
             }],
             /**
              *
@@ -816,13 +966,13 @@
                 stuName: "",
                 itemName: "",
                 date: "",
-                notes:"",
+                notes: "",
             }],
             itemInInfo: {
                 stuName: "",
                 itemName: "",
                 date: "",
-                notes:"",
+                notes: "",
             },
             /**
              *
@@ -839,13 +989,13 @@
                 stuName: "",
                 itemName: "",
                 date: "",
-                notes:"",
+                notes: "",
             }],
             itemOutInfo: {
                 stuName: "",
                 itemName: "",
                 date: "",
-                notes:"",
+                notes: "",
             },
             /**
              *
@@ -861,11 +1011,40 @@
                 departmentId: "",
                 propertyNum: "",
                 startDate: "",
-                reason:"",
-                finishDate:"",
+                reason: "",
+                finishDate: "",
             }],
-            editRepair:[],
-            dialogFormVisible6:false,
+            editRepair: [],
+            dialogFormVisible6: false,
+            /**
+             *
+             *
+             *
+             *
+             *导航第7栏的数据
+             *
+             *
+             *
+             * */
+            billInfoByCondition: {
+                departmentId: "",
+                month: "",
+            },
+            billInfo: {
+                departmentId:"",
+                waterBill: "",
+                elecBill: "",
+                date:"",
+            },
+            editBill: [],
+            dialogVisible7: false,
+            dialogFormVisible7: false,
+            tableData7: [{
+                departmentId: "",
+                waterBill: "",
+                elecBill: "",
+                date: "",
+            }],
         },
 
         // 页面加载完成后，发送异步请求，获取数据
@@ -877,6 +1056,7 @@
             this.selectAll4();
             this.selectAll5();
             this.selectAll6();
+            this.selectAll7();
         },
         methods: {
             //查询分页数据
@@ -891,7 +1071,7 @@
                     _this.totalCount = resp.data.totalCount;
                 })
             },
-            loginUser(){
+            loginUser() {
                 // let str = document.cookie.substr(7);
                 //
                 // console.log(str);
@@ -978,6 +1158,9 @@
 
                 this.dialogFormVisible = true;
                 this.editStu = row;
+            },
+            closeDialogForm() {
+                this.dialogFormVisible = false;
             },
             //编辑学生数据
             editStuInfo() {
@@ -1245,6 +1428,9 @@
                 this.dialogFormVisible6 = true;
                 this.editRepair = row;
             },
+            closeDialogForm6(){
+                this.dialogFormVisible6 = false;
+            },
             //编辑学生数据
             editRepairInfo() {
                 let that = this;
@@ -1257,6 +1443,96 @@
                         //关闭窗口
                         that.dialogFormVisible6 = false;
                         that.selectAll6();
+                        that.$message({
+                            message: '恭喜你，编辑成功',
+                            type: 'success'
+                        });
+                    }
+                })
+            },
+            /**
+             *
+             *
+             *
+             *
+             *导航第6栏的方法
+             *
+             *
+             *
+             * */
+            selectAll7() {
+                let _this = this;
+                axios({
+                    method: "get",
+                    url: "http://localhost:8080/admin/selectBill"
+                }).then(function (resp) {
+                    _this.tableData7 = resp.data;
+                })
+            },
+            //对话框内容方法   即新增费用信息方法
+            addBillInfo() {
+                let that = this;
+                axios({
+                    method: "post",
+                    url: "http://localhost:8080/admin/addBill",
+                    data: that.billInfo
+                }).then(function (resp) {
+                    if (resp.data == "success") {
+                        //关闭窗口
+                        that.dialogVisible7 = false;
+                        that.selectAll7();
+                        that.$message({
+                            message: '恭喜你，添加成功',
+                            type: 'success'
+                        });
+                        that.billInfo = [];
+                    }
+                })
+            },
+            onSubmit7() {
+                if (this.billInfoByCondition.departmentId == null && this.billInfoByCondition.date == null
+                    || this.billInfoByCondition.departmentId == "" && this.billInfoByCondition.date == "")
+                    this.selectAll7();
+                else
+                    this.selectBillByCondition();
+            },
+            selectBillByCondition(){
+                let _this = this;
+                axios({
+                    method: "post",
+                    url: "http://localhost:8080/admin/selectBillByCondition",
+                    data: this.billInfoByCondition
+                }).then(function (resp) {
+                    _this.tableData7 = resp.data;
+                })
+            },
+            onShow7() {
+                this.dialogVisible7 = true;
+            },
+            closeDialog7() {
+                this.dialogVisible7 = false;
+            },
+            closeDialogForm7() {
+                this.dialogFormVisible7 = false;
+            },
+            //实现编辑费用数据的数据回显
+            editInfo7(index, row) {
+
+                this.dialogFormVisible7 = true;
+                this.editBill = row;
+            },
+            //编辑学生数据
+            editBillInfo() {
+                let that = this;
+                axios({
+                    method: "post",
+                    url: "http://localhost:8080/admin/editBillInfo",
+                    data: that.editBill
+                }).then(function (resp) {
+                    if (resp.data == "success") {
+                        //关闭窗口
+                        that.dialogFormVisible7 = false;
+                        that.selectAll7();
                         that.$message({
                             message: '恭喜你，编辑成功',
                             type: 'success'

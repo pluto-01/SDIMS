@@ -11,6 +11,7 @@ public interface StuInfoMapper {
 
     /**
      * 查询所有学生信息
+     *
      * @return
      */
 //    @Select("select * from t_stuInfo where sno = #{sno} and departmentId = #{DepartmentId} and name = #{name} and gender = #{gender} and tel = #{tel}")
@@ -20,6 +21,7 @@ public interface StuInfoMapper {
 
     /**
      * 新增学生信息
+     *
      * @param stuInfo
      */
     @Insert("insert into t_stuInfo(sno,departmentId,name,major,gender,tel) values(#{sno},#{departmentId},#{name},#{major},#{gender},#{tel})")
@@ -28,6 +30,7 @@ public interface StuInfoMapper {
 
     /**
      * 分页查询学生信息
+     *
      * @param begin
      * @param size
      * @return
@@ -38,6 +41,7 @@ public interface StuInfoMapper {
 
     /**
      * 查询学生信息总记录数
+     *
      * @return
      */
     @Select("select count(*) from t_stuinfo")
@@ -45,15 +49,17 @@ public interface StuInfoMapper {
 
     /**
      * 分页条件查询学生信息
+     *
      * @param begin
      * @param size
      * @return
      */
-    List<StuInfo> selectByPageAndCondition(@Param("begin") int begin, @Param("size") int size,@Param("stuInfo")StuInfo stuInfo);
+    List<StuInfo> selectByPageAndCondition(@Param("begin") int begin, @Param("size") int size, @Param("stuInfo") StuInfo stuInfo);
 
 
     /**
      * 根据条件查询学生信息总记录数
+     *
      * @return
      */
     int selectTotalCountByCondition(StuInfo stuInfo);
@@ -61,6 +67,7 @@ public interface StuInfoMapper {
 
     /**
      * 编辑学生信息
+     *
      * @param stuInfo
      * @return
      */
@@ -69,12 +76,14 @@ public interface StuInfoMapper {
 
     /**
      * 根据从前端获取的id删除对应行信息
+     *
      * @param id
      */
     void deleteById(int id);
 
     /**
      * 查询宿舍楼中所有宿舍的电话号码
+     *
      * @return
      */
     @Select("select * from t_department")
@@ -82,6 +91,7 @@ public interface StuInfoMapper {
 
     /**
      * 根据宿舍号查询对于宿舍电话号码
+     *
      * @param stuInfo
      * @return
      */
@@ -89,6 +99,7 @@ public interface StuInfoMapper {
 
     /**
      * 查询学生所在宿舍信息
+     *
      * @param name
      * @return
      */

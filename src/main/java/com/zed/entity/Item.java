@@ -8,7 +8,7 @@ import java.util.Date;
 public class Item {
     private String stuName;
     private String itemName;
-    @JSONField(format="yyyy-MM-dd")
+    @JSONField(format = "yyyy-MM-dd")
     private Date date;
     private String notes;
 

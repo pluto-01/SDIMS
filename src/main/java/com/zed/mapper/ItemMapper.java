@@ -11,6 +11,7 @@ public interface ItemMapper {
 
     /**
      * 查询所有进楼物品信息
+     *
      * @return
      */
     @Select("select * from t_itemin")
@@ -18,6 +19,7 @@ public interface ItemMapper {
 
     /**
      * 新增进楼物品登记信息
+     *
      * @param item
      */
     @Insert("insert into t_itemin values(#{stuName},#{itemName},#{date},#{notes})")
@@ -25,6 +27,7 @@ public interface ItemMapper {
 
     /**
      * 查询所有出楼物品信息
+     *
      * @return
      */
     @Select("select * from t_itemOut")
@@ -32,6 +35,7 @@ public interface ItemMapper {
 
     /**
      * 新增进楼物品登记信息
+     *
      * @param item
      */
     @Insert("insert into t_itemOut values(#{stuName},#{itemName},#{date},#{notes})")

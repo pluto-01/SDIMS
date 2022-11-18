@@ -46,23 +46,32 @@
     </select>
 
     <select id="editStuInfo" resultType="com.zed.entity.StuInfo">
-        update t_stuinfo set
-        sno = #{sno},departmentId = #{departmentId},name= #{name},major = #{major},gender = #{gender},tel=#{tel}
+        update t_stuinfo
+        set sno          = #{sno},
+            departmentId = #{departmentId},
+            name= #{name},
+            major        = #{major},
+            gender       = #{gender},
+            tel=#{tel}
         where id = #{id}
     </select>
 
     <delete id="deleteById">
-        delete from  t_stuinfo where id = #{id}
+        delete
+        from t_stuinfo
+        where id = #{id}
     </delete>
 
     <select id="selectTelByCondition" resultType="com.zed.entity.StuInfo">
-        select * from t_department
+        select *
+        from t_department
         where departmentId = #{departmentId}
     </select>
     <select id="selectDeptInfo" resultType="com.zed.entity.StuInfo">
-        select t_stuinfo.departmentId,t_stuinfo.name,t_department.deptTel,t_stuinfo.tel from t_department,t_stuinfo where
-        t_department.departmentId = (select departmentId deptid from t_stuinfo where name = #{name})
-        and
-        t_stuinfo.departmentId = (select departmentId deptid from t_stuinfo where name = #{name}) ;
+        select t_stuinfo.departmentId, t_stuinfo.name, t_department.deptTel, t_stuinfo.tel
+        from t_department,
+             t_stuinfo
+        where t_department.departmentId = (select departmentId deptid from t_stuinfo where name = #{name})
+          and t_stuinfo.departmentId = (select departmentId deptid from t_stuinfo where name = #{name});
     </select>
 </mapper>

@@ -133,22 +133,22 @@ public class AdminServlet extends BaseServlet{
         response.setContentType("text/json;charset=utf-8");
         response.getWriter().write(jsonString);
     }
-    public void addVisitor(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        request.setCharacterEncoding("UTF-8");
-
-        //接收以JSON格式传来的数据
-        BufferedReader br = request.getReader();
-        String params = br.readLine();//JSON字符串
-
-        //将JSON字符串转为StuInfo对象
-        Visitor visitor = JSON.parseObject(params, Visitor.class);
-
-        //调用方法
-        visitorService.addVisitor(visitor);
-
-        //添加成功则提示
-        response.getWriter().write("success");
-    }
+//    public void addVisitor(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+//        request.setCharacterEncoding("UTF-8");
+//
+//        //接收以JSON格式传来的数据
+//        BufferedReader br = request.getReader();
+//        String params = br.readLine();//JSON字符串
+//
+//        //将JSON字符串转为StuInfo对象
+//        Visitor visitor = JSON.parseObject(params, Visitor.class);
+//
+//        //调用方法
+//        visitorService.addVisitor(visitor);
+//
+//        //添加成功则提示
+//        response.getWriter().write("success");
+//    }
     public void selectVisitor(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         //visitorService
 
@@ -188,22 +188,22 @@ public class AdminServlet extends BaseServlet{
         response.setContentType("text/json;charset=utf-8");
         response.getWriter().write(jsonString);
     }
-    public void addItemIn(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        request.setCharacterEncoding("UTF-8");
-
-        //接收以JSON格式传来的数据
-        BufferedReader br = request.getReader();
-        String params = br.readLine();//JSON字符串
-
-        //将JSON字符串转为StuInfo对象
-        Item item = JSON.parseObject(params, Item.class);
-
-        //调用方法
-        itemService.addItemIn(item);
-
-        //添加成功则提示
-        response.getWriter().write("success");
-    }
+//    public void addItemIn(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+//        request.setCharacterEncoding("UTF-8");
+//
+//        //接收以JSON格式传来的数据
+//        BufferedReader br = request.getReader();
+//        String params = br.readLine();//JSON字符串
+//
+//        //将JSON字符串转为StuInfo对象
+//        Item item = JSON.parseObject(params, Item.class);
+//
+//        //调用方法
+//        itemService.addItemIn(item);
+//
+//        //添加成功则提示
+//        response.getWriter().write("success");
+//    }
     public void selectItemOut(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
         List<Item> items = itemService.selectItemOut();
 
@@ -215,22 +215,22 @@ public class AdminServlet extends BaseServlet{
         response.setContentType("text/json;charset=utf-8");
         response.getWriter().write(jsonString);
     }
-    public void addItemOut(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        request.setCharacterEncoding("UTF-8");
-
-        //接收以JSON格式传来的数据
-        BufferedReader br = request.getReader();
-        String params = br.readLine();//JSON字符串
-
-        //将JSON字符串转为StuInfo对象
-        Item item = JSON.parseObject(params, Item.class);
-
-        //调用方法
-        itemService.addItemOut(item);
-
-        //添加成功则提示
-        response.getWriter().write("success");
-    }
+//    public void addItemOut(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+//        request.setCharacterEncoding("UTF-8");
+//
+//        //接收以JSON格式传来的数据
+//        BufferedReader br = request.getReader();
+//        String params = br.readLine();//JSON字符串
+//
+//        //将JSON字符串转为StuInfo对象
+//        Item item = JSON.parseObject(params, Item.class);
+//
+//        //调用方法
+//        itemService.addItemOut(item);
+//
+//        //添加成功则提示
+//        response.getWriter().write("success");
+//    }
     public void selectProperty(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
         List<Property> props = propertyService.selectProperty();
 

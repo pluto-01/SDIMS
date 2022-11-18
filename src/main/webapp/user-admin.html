@@ -364,7 +364,7 @@
                     </el-form-item>
 
                     <el-form-item label="日期">
-                        <el-date-picker type="date" placeholder="选择日期" v-model="visitorInfo.date"
+                        <el-date-picker type="date" placeholder="选择日期" v-model="visitorInfo.date" value-format="yyyy-MM-dd"
                                         style="width: 100%;"></el-date-picker>
                     </el-form-item>
 
@@ -443,7 +443,7 @@
                     </el-form-item>
 
                     <el-form-item label="日期">
-                        <el-date-picker type="date" placeholder="选择日期" v-model="itemInInfo.date"
+                        <el-date-picker type="date" placeholder="选择日期" v-model="itemInInfo.date" value-format="yyyy-MM-dd"
                                         style="width: 100%;"></el-date-picker>
                     </el-form-item>
 
@@ -521,7 +521,7 @@
                     </el-form-item>
 
                     <el-form-item label="日期">
-                        <el-date-picker type="date" placeholder="选择日期" v-model="itemOutInfo.date"
+                        <el-date-picker type="date" placeholder="选择日期" v-model="itemOutInfo.date" value-format="yyyy-MM-dd"
                                         style="width: 100%;"></el-date-picker>
                     </el-form-item>
 
@@ -654,8 +654,8 @@
                         </el-form-item>
 
                         <el-form-item label="完成日期">
-                            <el-date-picker type="date" placeholder="选择日期" v-model="editRepair.finishDate"
-                                            style="width: 100%;"></el-date-picker>
+                            <el-date-picker type="date" placeholder="选择日期" v-model="editRepair.finishDate" value-format="yyyy-MM-dd"
+                                            style="width: 100% ;"></el-date-picker>
                         </el-form-item>
 
                         <el-form-item align="center">

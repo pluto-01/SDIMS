@@ -5,10 +5,15 @@ import com.alibaba.fastjson.JSON;
 import com.zed.entity.Item;
 import com.zed.entity.Repair;
 import com.zed.entity.StuInfo;
+import com.zed.entity.Visitor;
+import com.zed.service.ItemService;
 import com.zed.service.RepairService;
 import com.zed.service.StuInfoService;
+import com.zed.service.VisitorService;
+import com.zed.service.impl.ItemServiceImpl;
 import com.zed.service.impl.RepairServiceImpl;
 import com.zed.service.impl.StuInfoServiceImpl;
+import com.zed.service.impl.VisitorServiceImpl;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -24,6 +29,9 @@ import java.util.List;
 @WebServlet("/stu/*")
 public class StudentServlet extends BaseServlet{
     private StuInfoService stuInfoService = new StuInfoServiceImpl();
+    private VisitorService visitorService = new VisitorServiceImpl();
+    private ItemService itemService = new ItemServiceImpl();
+
     private RepairService repairService = new RepairServiceImpl();
 
 
@@ -88,6 +96,54 @@ public class StudentServlet extends BaseServlet{
         String jsonString = JSON.toJSONString(value);
         response.setContentType("text/json;charset=utf-8");
         response.getWriter().write(jsonString);
+    }
+    public void addVisitor(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        request.setCharacterEncoding("UTF-8");
+
+        //接收以JSON格式传来的数据
+        BufferedReader br = request.getReader();
+        String params = br.readLine();//JSON字符串
+
+        //将JSON字符串转为StuInfo对象
+        Visitor visitor = JSON.parseObject(params, Visitor.class);
+
+        //调用方法
+        visitorService.addVisitor(visitor);
+
+        //添加成功则提示
+        response.getWriter().write("success");
+    }
+    public void addItemIn(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        request.setCharacterEncoding("UTF-8");
+
+        //接收以JSON格式传来的数据
+        BufferedReader br = request.getReader();
+        String params = br.readLine();//JSON字符串
+
+        //将JSON字符串转为StuInfo对象
+        Item item = JSON.parseObject(params, Item.class);
+
+        //调用方法
+        itemService.addItemIn(item);
+
+        //添加成功则提示
+        response.getWriter().write("success");
+    }
+    public void addItemOut(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        request.setCharacterEncoding("UTF-8");
+
+        //接收以JSON格式传来的数据
+        BufferedReader br = request.getReader();
+        String params = br.readLine();//JSON字符串
+
+        //将JSON字符串转为StuInfo对象
+        Item item = JSON.parseObject(params, Item.class);
+
+        //调用方法
+        itemService.addItemOut(item);
+
+        //添加成功则提示
+        response.getWriter().write("success");
     }
 
     public void  selectDeptInfo(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{

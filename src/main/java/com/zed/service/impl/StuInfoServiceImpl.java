@@ -97,10 +97,10 @@ public class StuInfoServiceImpl implements StuInfoService {
         if (departmentId != null && departmentId.length() > 0) {
             stuInfo.setDepartmentId("%" + departmentId + "%");
         }
-//        String name = stuInfo.getName();
-//        if (name != null & name.length() > 0) {
-//            stuInfo.setName("%" + name + "%");
-//        }
+        String name = stuInfo.getName();
+        if (name != null & name.length() > 0) {
+            stuInfo.setName("%" + name + "%");
+        }
         //查询当前页数据
         List<StuInfo> rows = mapper.selectByPageAndCondition(begin, size, stuInfo);
 

@@ -90,6 +90,8 @@ public class AdminServlet extends BaseServlet {
     }
 
     public void selectByPageAndCondition(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        request.setCharacterEncoding("UTF-8");
+
         //接收 当前页码 和 每页展示条数 url?currentPage&pageSize
         String _currentPage = request.getParameter("currentPage");
         String _pageSize = request.getParameter("pageSize");
@@ -100,15 +102,16 @@ public class AdminServlet extends BaseServlet {
         //获取查询条件对象
         BufferedReader br = request.getReader();
         String params = br.readLine();
-
+        System.out.println(params);
         //转为StuInfo
         StuInfo stuInfo = JSON.parseObject(params, StuInfo.class);
-
+        System.out.println(stuInfo);
         //调用service
         Page<StuInfo> page = stuInfoService.selectByPageAndCondition(currentPage, pageSize, stuInfo);
 
         //将数据转为JSON
         String jsonString = JSON.toJSONString(page);
+        System.out.println(jsonString);
         //写数据
         //防止中文乱码
         response.setContentType("text/json;charset=utf-8");

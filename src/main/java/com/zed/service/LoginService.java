@@ -7,4 +7,6 @@ public interface LoginService {
 
 
     User select2(String username, String password);
+
+    User select3(String username, String password);
 }
